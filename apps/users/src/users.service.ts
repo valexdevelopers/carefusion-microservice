@@ -866,9 +866,6 @@ export class HospitalsService {
                 description: 'Hospital creation failed, please try again'
             });
         }
-
-
-
     }
 
 
