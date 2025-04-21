@@ -118,8 +118,8 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 });
 
 exports.Prisma.HospitalScalarFieldEnum = {
-  id: 'id',
   name: 'name',
+  id: 'id',
   address: 'address',
   logo: 'logo',
   phone: 'phone',
@@ -131,7 +131,22 @@ exports.Prisma.HospitalScalarFieldEnum = {
   website: 'website',
   slogan: 'slogan',
   pobox: 'pobox',
+  nfcCardFee: 'nfcCardFee',
+  registrationFee: 'registrationFee',
   paymentPlan: 'paymentPlan',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.InsuranceSchemeScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  address: 'address',
+  phone: 'phone',
+  email: 'email',
+  website: 'website',
+  registrationFee: 'registrationFee',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -187,8 +202,24 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedBy: 'updatedBy',
   deletedAt: 'deletedAt',
   deletedBy: 'deletedBy',
-  hospitalId: 'hospitalId',
-  roleId: 'roleId'
+  roleId: 'roleId',
+  balance: 'balance'
+};
+
+exports.Prisma.TransactionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  amount: 'amount',
+  type: 'type',
+  status: 'status',
+  description: 'description',
+  reference: 'reference',
+  modeOfPayment: 'modeOfPayment',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  updatedBy: 'updatedBy',
+  deletedAt: 'deletedAt',
+  deletedBy: 'deletedBy'
 };
 
 exports.Prisma.PasswordHistoryScalarFieldEnum = {
@@ -210,9 +241,11 @@ exports.Prisma.PersonalAccessTokenScalarFieldEnum = {
   deletedAt: 'deletedAt'
 };
 
-exports.Prisma.StaffScalarFieldEnum = {
+exports.Prisma.HospitalStaffScalarFieldEnum = {
   id: 'id',
   department: 'department',
+  hospitalId: 'hospitalId',
+  role: 'role',
   createdAt: 'createdAt'
 };
 
@@ -249,6 +282,8 @@ exports.Prisma.PatientScalarFieldEnum = {
   bloodGroup: 'bloodGroup',
   genotype: 'genotype',
   emergencyContactId: 'emergencyContactId',
+  hospitalId: 'hospitalId',
+  insuranceSchemeId: 'insuranceSchemeId',
   billingtype: 'billingtype',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -271,7 +306,8 @@ exports.Prisma.NextOfKinScalarFieldEnum = {
 
 exports.Prisma.NHISWorkerScalarFieldEnum = {
   id: 'id',
-  role: 'role'
+  role: 'role',
+  insuranceSchemeId: 'insuranceSchemeId'
 };
 
 exports.Prisma.PublicHealthWorkerScalarFieldEnum = {
@@ -309,9 +345,55 @@ exports.PermissionAction = exports.$Enums.PermissionAction = {
 exports.UserType = exports.$Enums.UserType = {
   SUPERADMIN: 'SUPERADMIN',
   ADMIN: 'ADMIN',
-  HOSPITAL_ADMIN: 'HOSPITAL_ADMIN',
-  HOSPITAL_SUPERADMIN: 'HOSPITAL_SUPERADMIN',
-  HOSPITAL_MANAGER: 'HOSPITAL_MANAGER',
+  HOSPITAL_STAFF: 'HOSPITAL_STAFF',
+  PATIENT: 'PATIENT',
+  NHIS_WORKER: 'NHIS_WORKER',
+  PUBLIC_HEALTH_WORKER: 'PUBLIC_HEALTH_WORKER'
+};
+
+exports.UserStatus = exports.$Enums.UserStatus = {
+  ACTIVE: 'ACTIVE',
+  NOTAPPROVED: 'NOTAPPROVED',
+  RESTRICTED: 'RESTRICTED',
+  DELETED: 'DELETED'
+};
+
+exports.TransactionType = exports.$Enums.TransactionType = {
+  CREDIT: 'CREDIT',
+  DEBIT: 'DEBIT'
+};
+
+exports.TransactionStatus = exports.$Enums.TransactionStatus = {
+  PENDING: 'PENDING',
+  COMPLETED: 'COMPLETED',
+  FAILED: 'FAILED',
+  REFUNDED: 'REFUNDED',
+  DISPUTED: 'DISPUTED',
+  CANCELLED: 'CANCELLED',
+  CHARGEBACK: 'CHARGEBACK'
+};
+
+exports.TransactionMode = exports.$Enums.TransactionMode = {
+  CASH: 'CASH',
+  CARD: 'CARD',
+  TRANSFER: 'TRANSFER',
+  ONLINE: 'ONLINE',
+  SYSTEM_DEBIT: 'SYSTEM_DEBIT',
+  SYSTEM_CREDIT: 'SYSTEM_CREDIT'
+};
+
+exports.TokenType = exports.$Enums.TokenType = {
+  SESSION: 'SESSION',
+  API: 'API',
+  PASSWORDRESET: 'PASSWORDRESET',
+  DELETEACCOUNT: 'DELETEACCOUNT',
+  VERIFYACCOUNT: 'VERIFYACCOUNT'
+};
+
+exports.HospitalStaffRole = exports.$Enums.HospitalStaffRole = {
+  ADMIN: 'ADMIN',
+  SUPERADMIN: 'SUPERADMIN',
+  MANAGER: 'MANAGER',
   DOCTOR: 'DOCTOR',
   NURSE: 'NURSE',
   LAB_ADMIN: 'LAB_ADMIN',
@@ -324,26 +406,7 @@ exports.UserType = exports.$Enums.UserType = {
   PHLEBOTOMIST: 'PHLEBOTOMIST',
   OPTOMETRIST: 'OPTOMETRIST',
   DENTIST: 'DENTIST',
-  OTHER: 'OTHER',
-  PATIENT: 'PATIENT',
-  NHIS_WORKER: 'NHIS_WORKER',
-  PUBLIC_HEALTH_WORKER: 'PUBLIC_HEALTH_WORKER',
-  INSURANCE_PROVIDER: 'INSURANCE_PROVIDER'
-};
-
-exports.UserStatus = exports.$Enums.UserStatus = {
-  ACTIVE: 'ACTIVE',
-  NOTAPPROVED: 'NOTAPPROVED',
-  RESTRICTED: 'RESTRICTED',
-  DELETED: 'DELETED'
-};
-
-exports.TokenType = exports.$Enums.TokenType = {
-  SESSION: 'SESSION',
-  API: 'API',
-  PASSWORDRESET: 'PASSWORDRESET',
-  DELETEACCOUNT: 'DELETEACCOUNT',
-  VERIFYACCOUNT: 'VERIFYACCOUNT'
+  OTHER: 'OTHER'
 };
 
 exports.AddressType = exports.$Enums.AddressType = {
@@ -387,6 +450,12 @@ exports.Genotype = exports.$Enums.Genotype = {
   EE: 'EE'
 };
 
+exports.BillingType = exports.$Enums.BillingType = {
+  SELF_PAYING: 'SELF_PAYING',
+  INSURANCE: 'INSURANCE',
+  STAFF_INSURANCE: 'STAFF_INSURANCE'
+};
+
 exports.NHISRole = exports.$Enums.NHISRole = {
   ADMIN: 'ADMIN',
   VERIFIER: 'VERIFIER',
@@ -403,13 +472,15 @@ exports.PublicHealthRole = exports.$Enums.PublicHealthRole = {
 
 exports.Prisma.ModelName = {
   Hospital: 'Hospital',
+  InsuranceScheme: 'InsuranceScheme',
   Role: 'Role',
   Resource: 'Resource',
   RolePermission: 'RolePermission',
   User: 'User',
+  Transaction: 'Transaction',
   PasswordHistory: 'PasswordHistory',
   PersonalAccessToken: 'PersonalAccessToken',
-  Staff: 'Staff',
+  HospitalStaff: 'HospitalStaff',
   Address: 'Address',
   Patient: 'Patient',
   NextOfKin: 'NextOfKin',

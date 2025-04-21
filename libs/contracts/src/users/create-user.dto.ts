@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsOptional, IsArray, IsEmail, IsUUID, IsDate, IsEnum, IsNotEmpty, IsStrongPassword, MinLength } from 'class-validator';
+import { IsString, IsOptional, IsArray, IsEmail, IsUUID, IsDate, IsEnum, IsNotEmpty, IsStrongPassword, MinLength, ValidateIf, Min } from 'class-validator';
 import { Type } from 'class-transformer';
-import { PaymentPlan, PermissionAction, UserStatus, UserType } from '@shared/enums/users/user.enums';
+import { BillingType, PaymentPlan, PermissionAction, TransactionMode, UserStatus, UserType } from '@shared/enums/users/user.enums';
 
 
 
@@ -219,6 +219,7 @@ export class CreateUserDto {
     description: 'User password',
     example: 'Password123!',
   })
+  @IsOptional()
   @IsString()
   @IsStrongPassword({
     minLength: 8,   
@@ -227,7 +228,7 @@ export class CreateUserDto {
     minNumbers: 1,
     minSymbols: 1,
     })
-  password: string;
+  password?: string;
 
   @ApiProperty({
     description: 'User first name',
@@ -295,9 +296,20 @@ export class CreateUserDto {
     description: 'HOSPITAL ID if the user is associated with a hospital',
     example: 'b56e1d2c-6d6f-4d5b-bfed-91b7344561ad', format: 'uuid'
   })
+  @ValidateIf(o => o.type === UserType.PATIENT || o.type === UserType.HOSPITAL_STAFF)
   @IsUUID()
-  @IsOptional()
+  @IsNotEmpty()
   hospitalId?: string;
+
+
+  @ApiProperty({
+    description: 'HOSPITAL ID if the user is associated with a hospital',
+    example: 'b56e1d2c-6d6f-4d5b-bfed-91b7344561ad', format: 'uuid'
+  })
+  @ValidateIf(o => o.type === UserType.NHIS_WORKER)
+  @IsUUID()
+  @IsNotEmpty()
+  insuranceSchemeId?: string;
 
   @ApiProperty({
     description: 'HOSPITAL ID if the user is associated with a hospital',
@@ -306,5 +318,37 @@ export class CreateUserDto {
   @IsUUID()
   @IsOptional()
   roleId?: string;
+
+
+  // Transaction Fields – Only required for PATIENT
+  // at the point of patient registration, registration fee must be paid
+  @ApiProperty({ description: 'Card opening deposit amount', example: '5000.00' })
+  @ValidateIf(o => o.type === UserType.PATIENT)
+  @IsNotEmpty()
+  @Min(1000.00)
+  amount?: number;
+
+  // at the point of patient registration, registration fee must be paid
+  @ApiProperty({ description: 'patient billing type', example: BillingType.INSURANCE })
+  @ValidateIf(o => o.type === UserType.PATIENT)
+  @IsNotEmpty()
+  @IsEnum(BillingType)
+  billingType?: BillingType;
+
+  
+
+
+  @ApiProperty({ description: 'Payment reference', example: '354rgfed' })
+  @ValidateIf(o => o.type === UserType.PATIENT)
+  @IsString()
+  @IsNotEmpty()
+  paymentReference?: string;
+
+  @ApiProperty({ description: 'Payment mode', example: 'CARD' })
+  @ValidateIf(o => o.type === UserType.PATIENT)
+  @IsEnum(TransactionMode)
+  @IsNotEmpty()
+  modeOfPayment?: TransactionMode;
+  
 }
 
