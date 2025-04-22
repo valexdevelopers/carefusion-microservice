@@ -5,9 +5,12 @@ export class UserDto {
     email: string;
     password: string;
     firstName: string;
-    middleName: string;
+    middleName: string | null;
     lastName: string;
     phone: string[];
+    balance: number;
+    loginAttempts: number;
+    lastLogin: Date | null;
     type: UserType;
     status: UserStatus;
     createdAt: Date;

@@ -1,13 +1,14 @@
-import { ConflictException, Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
 import { ClientProxy } from '@nestjs/microservices';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from '@shared/contracts/users/create-user.dto';
 import { NOTIFICATION_CLIENT } from '@shared/contracts';
-import { UserDto } from '@shared/contracts/users';
-import { $Enums, Prisma } from '../generated/prisma';
+import { LoginUserDto, UpdateUserDto, UpdateUserPasswordDto, UserDto } from '@shared/contracts/users';
+import { $Enums, Prisma,} from '../generated/prisma';
 import * as bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
+import { UserStatus, UserType } from '@shared/enums/users/user.enums';
 
 @Injectable()
 export class UsersService {
@@ -233,20 +234,21 @@ export class UsersService {
             });
 
             //  emit a email verification - notification event
-            this.notificationClient.emit(NOTIFICATIONPATTERN.SENDNOTIFICATION, {
-                type: 'EMAIL',
-                recipientId: account.user.id,
-                data: {
-                    subject: 'Email Verification Notice!',
-                    message: `Thank you for signing up! here is your verification code ${account.hexCode}`,
-                    recipientEmail: account.user.email,
-                },
-            });
+            // this.notificationClient.emit(NOTIFICATIONPATTERN.SENDNOTIFICATION, {
+            //     type: 'EMAIL',
+            //     recipientId: account.user.id,
+            //     data: {
+            //         subject: 'Email Verification Notice!',
+            //         message: `Thank you for signing up! here is your verification code ${account.hexCode}`,
+            //         recipientEmail: account.user.email,
+            //     },
+            // });
 
             const userAccount: UserDto = {
-                ...account.user,
-                accountType: account.user.accountType as unknown as AccountType,
-                status: account.user.status as unknown as UserStatus,
+                ...account,
+                type: account.type as unknown as UserType,
+                status: account.status as unknown as UserStatus,
+                balance: account.balance as unknown as number
             };
             return userAccount;
 
@@ -263,7 +265,7 @@ export class UsersService {
     }
 
     async login(loginUserDto: LoginUserDto) {
-        console.log("request got here")
+
         const { email, password } = loginUserDto;
 
         const user = await this.databaseService.user.findUnique({
@@ -323,7 +325,7 @@ export class UsersService {
             )
         }
 
-        const refreshToken = this.jwtService.sign({ sub: user.id, type: user.accountType, isEmailVerified: user.isEmailVerified }, {
+        const refreshToken = this.jwtService.sign({ sub: user.id, type: user.type}, {
             secret: process.env.JWT_REFRESH_TOKEN_SECRET,
             expiresIn: '7d',
         });
@@ -340,7 +342,7 @@ export class UsersService {
         const { password: userpassword, refreshToken: userRefreshToken, ...rest } = user
         return {
             user: { ...rest },
-            access_token: this.jwtService.sign({ sub: user.id, type: user.accountType, isEmailVerified: user.isEmailVerified }, {
+            access_token: this.jwtService.sign({ sub: user.id, type: user.type}, {
                 secret: process.env.JWT_ACCESS_TOKEN_SECRET,
                 expiresIn: '59m',
             }),
@@ -377,10 +379,11 @@ export class UsersService {
                 id: id
             },
             include: {
-                admin: true,
-                profixer: true,
-                proSeeker: true,
-                personalAccessToken: true
+                staff: true,
+                address: true,
+                patient: true,
+                nhisWorker: true,
+                publicHealthWorker: true
             }
         });
         if (!user) {
@@ -392,69 +395,71 @@ export class UsersService {
 
         const userAccount: UserDto = {
             ...user,
-            accountType: user.accountType as unknown as AccountType,
+            type: user.type as unknown as UserType,
             status: user.status as unknown as UserStatus,
+            balance: user.balance as unknown as number
         };
         return userAccount;
 
     }
 
-    async update(id: string, updateUserDto: UpdateUserDto): Promise<UserDto> {
-        console.log({ id })
-        console.log({ updateUserDto })
-        try {
-            const updateUserInput: Prisma.UserUpdateInput = {
-                ...updateUserDto,
-                status: updateUserDto.status ?? undefined,
-            };
+    // async update(id: string, updateUserDto: UpdateUserDto): Promise<UserDto> {
 
-            const user = await this.databaseService.user.update({
-                where: { id },
-                data: { ...updateUserInput }
-            });
+    //     try {
+    //         const updateUserInput: Prisma.UserUpdateInput = {
+    //             ...updateUserDto,
+    //             type: updateUserDto.type as $Enums.UserType ?? undefined,
+    //             status: updateUserDto.status ?? undefined,
+    //         };
 
-            if (updateUserDto.bio || updateUserDto.companyName || updateUserDto.businessSlogan || updateUserDto.workingHours) {
-                const { phoneNumber,
-                    postalCode,
-                    country,
-                    state,
-                    city,
-                    street,
-                    street2,
-                    location,
-                    status,
-                    email,
-                    firstName,
-                    lastName,
-                    password,
-                    accountType,
-                    workingHours,
-                    ...rest
-                } = updateUserDto
+    //         const user = await this.databaseService.user.update({
+    //             where: { id },
+    //             data: { ...updateUserInput }
+    //         });
 
-                const updateProfixerInput: Prisma.ProFixerUpdateInput = {
-                    ...rest,
-                    workingHours: updateUserDto.workingHours
-                        ? updateUserDto.workingHours as Prisma.JsonValue
-                        : undefined,
-                };
+    //         if (updateUserDto.bio || updateUserDto.companyName || updateUserDto.businessSlogan || updateUserDto.workingHours) {
+    //             const { phoneNumber,
+    //                 postalCode,
+    //                 country,
+    //                 state,
+    //                 city,
+    //                 street,
+    //                 street2,
+    //                 location,
+    //                 status,
+    //                 email,
+    //                 firstName,
+    //                 lastName,
+    //                 password,
+    //                 accountType,
+    //                 workingHours,
+    //                 ...rest
+    //             } = updateUserDto
 
-                const profixer = await this.databaseService.proFixer.update({
-                    where: { id: user.id },
-                    data: { ...updateProfixerInput }
-                })
-            }
-            const userAccount: UserDto = {
-                ...user,
-                accountType: user.accountType as unknown as AccountType,
-                status: user.status as unknown as UserStatus,
-            };
-            return userAccount;
+    //             const updateProfixerInput: Prisma.ProFixerUpdateInput = {
+    //                 ...rest,
+    //                 workingHours: updateUserDto.workingHours
+    //                     ? updateUserDto.workingHours as Prisma.JsonValue
+    //                     : undefined,
+    //             };
 
-        } catch (error) {
-            throw new ConflictException(error);
-        }
-    }
+    //             const profixer = await this.databaseService.proFixer.update({
+    //                 where: { id: user.id },
+    //                 data: { ...updateProfixerInput }
+    //             })
+    //         }
+    //         const userAccount: UserDto = {
+    //             ...user,
+    //             type: user.type as unknown as UserType,
+    //             status: user.status as unknown as UserStatus,
+    //             balance: user.balance as unknown as number
+    //         };
+    //         return userAccount;
+
+    //     } catch (error) {
+    //         throw new ConflictException(error);
+    //     }
+    // }
 
     async remove(id: string, updaterId: string): Promise<UserDto> {
 
@@ -472,8 +477,9 @@ export class UsersService {
 
         const userAccount: UserDto = {
             ...deletedUser,
-            accountType: deletedUser.accountType as unknown as AccountType,
+            type: deletedUser.type as unknown as UserType,
             status: deletedUser.status as unknown as UserStatus,
+            balance: deletedUser.balance as unknown as number
         };
         return userAccount;
 
@@ -490,273 +496,274 @@ export class UsersService {
         });
         const userAccount: UserDto = {
             ...deletedUser,
-            accountType: deletedUser.accountType as unknown as AccountType,
+            type: deletedUser.type as unknown as UserType,
             status: deletedUser.status as unknown as UserStatus,
+            balance: deletedUser.balance as unknown as number
         };
         return userAccount;
 
     }
 
-    async verify(id: string, token: string) {
+    // async verify(id: string, token: string) {
 
-        const personalAccessToken = await this.databaseService.personalAccessToken.findUnique({
-            where: {
-                userId_type: { userId: id, type: 'VERIFYACCOUNT' }
-            },
-            select: { token: true, expiry: true, userId: true }
-        });
+    //     const personalAccessToken = await this.databaseService.personalAccessToken.findUnique({
+    //         where: {
+    //             userId_type: { userId: id, type: 'VERIFYACCOUNT' }
+    //         },
+    //         select: { token: true, expiry: true, userId: true }
+    //     });
 
-        if (!personalAccessToken) {
-            throw new NotFoundException('Token Error', {
-                cause: new Error(),
-                description: 'Token Error, Kindly Request a new token'
-            });
-        }
+    //     if (!personalAccessToken) {
+    //         throw new NotFoundException('Token Error', {
+    //             cause: new Error(),
+    //             description: 'Token Error, Kindly Request a new token'
+    //         });
+    //     }
 
-        const isMatch = await bcrypt.compare(token, personalAccessToken.token);
+    //     const isMatch = await bcrypt.compare(token, personalAccessToken.token);
 
-        if (!isMatch) {
-            throw new NotFoundException('Invalid verification token', {
-                cause: new Error(),
-                description: 'Invalid token, verification token mismatch'
-            });
-        }
+    //     if (!isMatch) {
+    //         throw new NotFoundException('Invalid verification token', {
+    //             cause: new Error(),
+    //             description: 'Invalid token, verification token mismatch'
+    //         });
+    //     }
 
-        // Check if the token has expired
-        const now = new Date();
-        if (personalAccessToken.expiry && new Date(personalAccessToken.expiry) < now) {
-            throw new UnauthorizedException('Your verification token has expired', {
-                cause: new Error(),
-                description: 'Your verification token has expired'
-            });
-        }
+    //     // Check if the token has expired
+    //     const now = new Date();
+    //     if (personalAccessToken.expiry && new Date(personalAccessToken.expiry) < now) {
+    //         throw new UnauthorizedException('Your verification token has expired', {
+    //             cause: new Error(),
+    //             description: 'Your verification token has expired'
+    //         });
+    //     }
 
-        // Update user to set email as verified
-        const user = await this.databaseService.user.update({
-            where: { id: personalAccessToken.userId },
-            data: { isEmailVerified: true } // or true if it's a boolean field
-        });
+    //     // Update user to set email as verified
+    //     const user = await this.databaseService.user.update({
+    //         where: { id: personalAccessToken.userId },
+    //         data: { isEmailVerified: true } // or true if it's a boolean field
+    //     });
 
-        return user;
+    //     return user;
 
-    }
+    // }
 
-    async resendVerificationToken(id: string) {
-        const user = await this.databaseService.user.findUnique({
-            where: {
-                id: id
-            }
-        });
+    // async resendVerificationToken(id: string) {
+    //     const user = await this.databaseService.user.findUnique({
+    //         where: {
+    //             id: id
+    //         }
+    //     });
 
-        if (!user) {
-            console.log("user not found")
-            throw new NotFoundException('This user does not exist in our system', {
-                cause: new Error(),
-                description: 'could not find a valid user'
-            });
-        }
+    //     if (!user) {
+    //         console.log("user not found")
+    //         throw new NotFoundException('This user does not exist in our system', {
+    //             cause: new Error(),
+    //             description: 'could not find a valid user'
+    //         });
+    //     }
 
-        // create personal access token for user account verification
-        const hexCode = Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, "0");
-        const expiry = new Date();
-        expiry.setHours(expiry.getHours() + 3);
-        const hashedHexCode = await bcrypt.hash(hexCode, 10);
-        const personalAccessTokenInput: Prisma.PersonalAccessTokenCreateInput = {
-            user: { connect: { id: user.id } },
-            token: hashedHexCode,
-            type: 'VERIFYACCOUNT' as $Enums.TokenType,
-            expiry: expiry,
-        }
+    //     // create personal access token for user account verification
+    //     const hexCode = Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, "0");
+    //     const expiry = new Date();
+    //     expiry.setHours(expiry.getHours() + 3);
+    //     const hashedHexCode = await bcrypt.hash(hexCode, 10);
+    //     const personalAccessTokenInput: Prisma.PersonalAccessTokenCreateInput = {
+    //         user: { connect: { id: user.id } },
+    //         token: hashedHexCode,
+    //         type: 'VERIFYACCOUNT' as $Enums.TokenType,
+    //         expiry: expiry,
+    //     }
 
-        const personalAccessToken = await this.databaseService.personalAccessToken.upsert({
-            where: { userId_type: { userId: user.id, type: 'VERIFYACCOUNT' } },
-            update: {
-                token: personalAccessTokenInput.token,
-                expiry: personalAccessTokenInput.expiry,
-            },
-            create: {
-                user: { connect: { id: user.id } },
-                token: personalAccessTokenInput.token,
-                type: 'VERIFYACCOUNT' as $Enums.TokenType,
-                expiry: personalAccessTokenInput.expiry,
-            },
-        });
+    //     const personalAccessToken = await this.databaseService.personalAccessToken.upsert({
+    //         where: { userId_type: { userId: user.id, type: 'VERIFYACCOUNT' } },
+    //         update: {
+    //             token: personalAccessTokenInput.token,
+    //             expiry: personalAccessTokenInput.expiry,
+    //         },
+    //         create: {
+    //             user: { connect: { id: user.id } },
+    //             token: personalAccessTokenInput.token,
+    //             type: 'VERIFYACCOUNT' as $Enums.TokenType,
+    //             expiry: personalAccessTokenInput.expiry,
+    //         },
+    //     });
 
-        if (!personalAccessToken) {
-            throw new InternalServerErrorException('Could not generate a verification code', {
-                cause: new Error(),
-                description: 'server error, could not generate verification code'
-            });
+    //     if (!personalAccessToken) {
+    //         throw new InternalServerErrorException('Could not generate a verification code', {
+    //             cause: new Error(),
+    //             description: 'server error, could not generate verification code'
+    //         });
 
-            // should log error to logger later on when logger is available
-        }
+    //         // should log error to logger later on when logger is available
+    //     }
 
-        //  emit a email verification - notification event
-        this.notificationClient.emit(NOTIFICATIONPATTERN.SENDNOTIFICATION, {
-            type: 'EMAIL',
-            recipientId: user.id,
-            data: {
-                subject: 'Email Verification Notice!',
-                message: `Thank you for signing up! here is your verification code ${personalAccessToken.token}`,
-                recipientEmail: user.email,
-            },
-        });
-        return user
-    }
+    //     //  emit a email verification - notification event
+    //     this.notificationClient.emit(NOTIFICATIONPATTERN.SENDNOTIFICATION, {
+    //         type: 'EMAIL',
+    //         recipientId: user.id,
+    //         data: {
+    //             subject: 'Email Verification Notice!',
+    //             message: `Thank you for signing up! here is your verification code ${personalAccessToken.token}`,
+    //             recipientEmail: user.email,
+    //         },
+    //     });
+    //     return user
+    // }
 
-    async forgotPassword(email: string): Promise<string> {
-
-
-        try {
-
-            // Start a transaction - for an all or fail process of creating a user
-            const account = await this.databaseService.$transaction(async (prisma) => {
-                const user = await this.databaseService.user.findUnique({
-                    where: {
-                        email
-                    }
-                });
-
-                if (!user) {
-                    throw new NotFoundException('We could not find an account associated with this email', {
-                        cause: new Error(),
-                        description: 'No existing user'
-                    });
-
-                }
-
-                // create personal access token for user account verification
-                const hexCode = Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, "0");
-                const expiry = new Date();
-                expiry.setHours(expiry.getHours() + 3);
-                const hashedHexCode = await bcrypt.hash(hexCode, 10);
-                const personalAccessToken = await prisma.personalAccessToken.upsert({
-                    where: {
-                        userId_type: {
-                            userId: user.id,
-                            type: 'PASSWORDRESET' as $Enums.TokenType
-                        }
-                    },
-                    update: {
-                        token: hashedHexCode,
-                        expiry: expiry
-                    },
-                    create: {
-                        user: { connect: { id: user.id } },
-                        token: hashedHexCode,
-                        type: 'PASSWORDRESET' as $Enums.TokenType,
-                        expiry: expiry
-                    }
-                });
-
-                return { user, personalAccessToken }; // Return created user
-            });
-
-            //  emit a email verification - notification event
-            this.notificationClient.emit(NOTIFICATIONPATTERN.SENDNOTIFICATION, {
-                type: 'EMAIL',
-                recipientId: account.user.id,
-                data: {
-                    subject: 'Request to reset your password',
-                    message: `You recently requested to change your password. Token ${account.personalAccessToken.token}`,
-                    recipientEmail: account.user.email,
-                },
-            });
-
-            return "We sent you an email containing details to reset your password";
-
-        } catch (error) {
-            console.log(error)
-            throw new Error(error);
-        }
+    // async forgotPassword(email: string): Promise<string> {
 
 
+    //     try {
 
-    }
+    //         // Start a transaction - for an all or fail process of creating a user
+    //         const account = await this.databaseService.$transaction(async (prisma) => {
+    //             const user = await this.databaseService.user.findUnique({
+    //                 where: {
+    //                     email
+    //                 }
+    //             });
 
-    private async verifyPasswordToken(token: string, tokenId: string): Promise<{ isMatch: boolean, userId: string }> {
-        try {
+    //             if (!user) {
+    //                 throw new NotFoundException('We could not find an account associated with this email', {
+    //                     cause: new Error(),
+    //                     description: 'No existing user'
+    //                 });
 
-            const account = await this.databaseService.$transaction(async (prisma) => {
+    //             }
 
-                const personalAccessToken = await prisma.personalAccessToken.findUnique({
-                    where: {
-                        id: tokenId
-                    },
-                    select: { userId: true, token: true }
-                });
+    //             // create personal access token for user account verification
+    //             const hexCode = Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, "0");
+    //             const expiry = new Date();
+    //             expiry.setHours(expiry.getHours() + 3);
+    //             const hashedHexCode = await bcrypt.hash(hexCode, 10);
+    //             const personalAccessToken = await prisma.personalAccessToken.upsert({
+    //                 where: {
+    //                     userId_type: {
+    //                         userId: user.id,
+    //                         type: 'PASSWORDRESET' as $Enums.TokenType
+    //                     }
+    //                 },
+    //                 update: {
+    //                     token: hashedHexCode,
+    //                     expiry: expiry
+    //                 },
+    //                 create: {
+    //                     user: { connect: { id: user.id } },
+    //                     token: hashedHexCode,
+    //                     type: 'PASSWORDRESET' as $Enums.TokenType,
+    //                     expiry: expiry
+    //                 }
+    //             });
 
-                const isMatch = await bcrypt.compare(token, personalAccessToken.token);
+    //             return { user, personalAccessToken }; // Return created user
+    //         });
 
-                return { isMatch, userId: personalAccessToken.userId }; // Return created user
-            });
+    //         //  emit a email verification - notification event
+    //         this.notificationClient.emit(NOTIFICATIONPATTERN.SENDNOTIFICATION, {
+    //             type: 'EMAIL',
+    //             recipientId: account.user.id,
+    //             data: {
+    //                 subject: 'Request to reset your password',
+    //                 message: `You recently requested to change your password. Token ${account.personalAccessToken.token}`,
+    //                 recipientEmail: account.user.email,
+    //             },
+    //         });
 
-            return account;
+    //         return "We sent you an email containing details to reset your password";
 
-        } catch (error) {
-            throw new Error(error);
-        }
-    }
+    //     } catch (error) {
+    //         console.log(error)
+    //         throw new Error(error);
+    //     }
 
-    async changePassword(updateUserPasswordDto: UpdateUserPasswordDto): Promise<UserDto> {
-        try {
 
-            if (!updateUserPasswordDto.oldPassword && !updateUserPasswordDto.token) {
-                throw new UnauthorizedException('unauthorized request, no token or previous password provided', {
-                    cause: new Error(),
-                    description: 'unauthorized'
-                });
-            }
-            let UserId: string
-            if (updateUserPasswordDto.token) {
-                const verifyToken = await this.verifyPasswordToken(updateUserPasswordDto.id, updateUserPasswordDto.token)
-                if (!verifyToken.isMatch) throw new UnauthorizedException('Unauthorized request! Change password token mismatch');
-                UserId = verifyToken.userId
-            } else {
 
-                const userPasword = await this.databaseService.user.findUnique({
-                    where: { id: updateUserPasswordDto.userId },
-                    select: { password: true, id: true }
-                });
+    // }
 
-                const isMatch = await bcrypt.compare(updateUserPasswordDto.oldPassword, userPasword.password);
-                if (!isMatch) throw new UnauthorizedException('Incorrect old password, could not update password');
-                UserId = updateUserPasswordDto.userId
-            }
+    // private async verifyPasswordToken(token: string, tokenId: string): Promise<{ isMatch: boolean, userId: string }> {
+    //     try {
 
-            const User = await this.databaseService.$transaction(async (prisma) => {
-                const userPasword = await prisma.user.findUnique({
-                    where: { id: UserId },
-                    select: { password: true, id: true }
-                });
+    //         const account = await this.databaseService.$transaction(async (prisma) => {
 
-                const passwordHistoryInput: Prisma.PasswordHistoryCreateInput = {
-                    user: { connect: { id: userPasword.id } },
-                    password: userPasword.password
-                }
+    //             const personalAccessToken = await prisma.personalAccessToken.findUnique({
+    //                 where: {
+    //                     id: tokenId
+    //                 },
+    //                 select: { userId: true, token: true }
+    //             });
 
-                const passwordHistory = await prisma.passwordHistory.create({ data: passwordHistoryInput })
-                const hashedPassword = await bcrypt.hash(updateUserPasswordDto.password, 10);
-                const user = await prisma.user.update({
-                    where: { id: userPasword.id },
-                    data: {
-                        password: hashedPassword,
+    //             const isMatch = await bcrypt.compare(token, personalAccessToken.token);
 
-                    }
-                });
+    //             return { isMatch, userId: personalAccessToken.userId }; // Return created user
+    //         });
 
-                return user
-            });
-            const userAccount: UserDto = {
-                ...User,
-                accountType: User.accountType as unknown as AccountType,
-                status: User.status as unknown as UserStatus,
-            };
-            return userAccount;
-        } catch (error) {
-            throw new ConflictException(error);
-        }
-    }
+    //         return account;
+
+    //     } catch (error) {
+    //         throw new Error(error);
+    //     }
+    // }
+
+    // async changePassword(updateUserPasswordDto: UpdateUserPasswordDto): Promise<UserDto> {
+    //     try {
+
+    //         if (!updateUserPasswordDto.oldPassword && !updateUserPasswordDto.token) {
+    //             throw new UnauthorizedException('unauthorized request, no token or previous password provided', {
+    //                 cause: new Error(),
+    //                 description: 'unauthorized'
+    //             });
+    //         }
+    //         let UserId: string
+    //         if (updateUserPasswordDto.token) {
+    //             const verifyToken = await this.verifyPasswordToken(updateUserPasswordDto.id, updateUserPasswordDto.token)
+    //             if (!verifyToken.isMatch) throw new UnauthorizedException('Unauthorized request! Change password token mismatch');
+    //             UserId = verifyToken.userId
+    //         } else {
+
+    //             const userPasword = await this.databaseService.user.findUnique({
+    //                 where: { id: updateUserPasswordDto.userId },
+    //                 select: { password: true, id: true }
+    //             });
+
+    //             const isMatch = await bcrypt.compare(updateUserPasswordDto.oldPassword, userPasword.password);
+    //             if (!isMatch) throw new UnauthorizedException('Incorrect old password, could not update password');
+    //             UserId = updateUserPasswordDto.userId
+    //         }
+
+    //         const User = await this.databaseService.$transaction(async (prisma) => {
+    //             const userPasword = await prisma.user.findUnique({
+    //                 where: { id: UserId },
+    //                 select: { password: true, id: true }
+    //             });
+
+    //             const passwordHistoryInput: Prisma.PasswordHistoryCreateInput = {
+    //                 user: { connect: { id: userPasword.id } },
+    //                 password: userPasword.password
+    //             }
+
+    //             const passwordHistory = await prisma.passwordHistory.create({ data: passwordHistoryInput })
+    //             const hashedPassword = await bcrypt.hash(updateUserPasswordDto.password, 10);
+    //             const user = await prisma.user.update({
+    //                 where: { id: userPasword.id },
+    //                 data: {
+    //                     password: hashedPassword,
+
+    //                 }
+    //             });
+
+    //             return user
+    //         });
+    //         const userAccount: UserDto = {
+    //             ...User,
+    //             accountType: User.accountType as unknown as AccountType,
+    //             status: User.status as unknown as UserStatus,
+    //         };
+    //         return userAccount;
+    //     } catch (error) {
+    //         throw new ConflictException(error);
+    //     }
+    // }
 
     /**
      * 
@@ -766,8 +773,9 @@ export class UsersService {
     private mapToUserDto(user: any): UserDto {
         return {
             ...user,
-            accountType: user.accountType as unknown as AccountType,
+            type: user.type as unknown as UserType,
             status: user.status as unknown as UserStatus,
+            balance: user.balance as unknown as number
         };
     }
 }

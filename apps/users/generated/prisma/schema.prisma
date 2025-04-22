@@ -107,27 +107,30 @@ model RolePermission {
 }
 
 model User {
-  id         String     @id @default(uuid())
-  email      String     @unique
-  password   String
-  firstName  String
-  middleName String?
-  lastName   String
-  phone      String[]
-  type       UserType
-  status     UserStatus @default(ACTIVE)
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
-  updatedBy  String? // userId of the user who updated this role
-  deletedAt  DateTime? // soft delete
-  deletedBy  String? // userId of the user who updated this role
-  roleId     String?
-  balance    Decimal    @default(0.00) // for patients, this is the amount they have paid 
+  id            String     @id @default(uuid())
+  email         String     @unique
+  password      String
+  firstName     String
+  middleName    String?
+  lastName      String
+  phone         String[]
+  type          UserType
+  status        UserStatus @default(ACTIVE)
+  loginAttempts Int        @default(0)
+  refreshToken  String?
+  lastLogin     DateTime?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  updatedBy     String? // userId of the user who updated this role
+  deletedAt     DateTime? // soft delete
+  deletedBy     String? // userId of the user who updated this role
+  roleId        String?
+  balance       Decimal    @default(0.00) // for patients, this is the amount they have paid 
 
   role                 Role?                 @relation(fields: [roleId], references: [id]) // 👈 relation to Role
   personalAccessTokens PersonalAccessToken[]
   passwordHistory      PasswordHistory[]
-  addresss             Address[]
+  address              Address[]
   transaction          Transaction[]
 
   staff              HospitalStaff?

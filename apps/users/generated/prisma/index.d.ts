@@ -2561,14 +2561,14 @@ export namespace Prisma {
   export type UserCountOutputType = {
     personalAccessTokens: number
     passwordHistory: number
-    addresss: number
+    address: number
     transaction: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     personalAccessTokens?: boolean | UserCountOutputTypeCountPersonalAccessTokensArgs
     passwordHistory?: boolean | UserCountOutputTypeCountPasswordHistoryArgs
-    addresss?: boolean | UserCountOutputTypeCountAddresssArgs
+    address?: boolean | UserCountOutputTypeCountAddressArgs
     transaction?: boolean | UserCountOutputTypeCountTransactionArgs
   }
 
@@ -2600,7 +2600,7 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountAddresssArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCountOutputTypeCountAddressArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AddressWhereInput
   }
 
@@ -8544,10 +8544,12 @@ export namespace Prisma {
   }
 
   export type UserAvgAggregateOutputType = {
+    loginAttempts: number | null
     balance: Decimal | null
   }
 
   export type UserSumAggregateOutputType = {
+    loginAttempts: number | null
     balance: Decimal | null
   }
 
@@ -8560,6 +8562,9 @@ export namespace Prisma {
     lastName: string | null
     type: $Enums.UserType | null
     status: $Enums.UserStatus | null
+    loginAttempts: number | null
+    refreshToken: string | null
+    lastLogin: Date | null
     createdAt: Date | null
     updatedAt: Date | null
     updatedBy: string | null
@@ -8578,6 +8583,9 @@ export namespace Prisma {
     lastName: string | null
     type: $Enums.UserType | null
     status: $Enums.UserStatus | null
+    loginAttempts: number | null
+    refreshToken: string | null
+    lastLogin: Date | null
     createdAt: Date | null
     updatedAt: Date | null
     updatedBy: string | null
@@ -8597,6 +8605,9 @@ export namespace Prisma {
     phone: number
     type: number
     status: number
+    loginAttempts: number
+    refreshToken: number
+    lastLogin: number
     createdAt: number
     updatedAt: number
     updatedBy: number
@@ -8609,10 +8620,12 @@ export namespace Prisma {
 
 
   export type UserAvgAggregateInputType = {
+    loginAttempts?: true
     balance?: true
   }
 
   export type UserSumAggregateInputType = {
+    loginAttempts?: true
     balance?: true
   }
 
@@ -8625,6 +8638,9 @@ export namespace Prisma {
     lastName?: true
     type?: true
     status?: true
+    loginAttempts?: true
+    refreshToken?: true
+    lastLogin?: true
     createdAt?: true
     updatedAt?: true
     updatedBy?: true
@@ -8643,6 +8659,9 @@ export namespace Prisma {
     lastName?: true
     type?: true
     status?: true
+    loginAttempts?: true
+    refreshToken?: true
+    lastLogin?: true
     createdAt?: true
     updatedAt?: true
     updatedBy?: true
@@ -8662,6 +8681,9 @@ export namespace Prisma {
     phone?: true
     type?: true
     status?: true
+    loginAttempts?: true
+    refreshToken?: true
+    lastLogin?: true
     createdAt?: true
     updatedAt?: true
     updatedBy?: true
@@ -8768,6 +8790,9 @@ export namespace Prisma {
     phone: string[]
     type: $Enums.UserType
     status: $Enums.UserStatus
+    loginAttempts: number
+    refreshToken: string | null
+    lastLogin: Date | null
     createdAt: Date
     updatedAt: Date
     updatedBy: string | null
@@ -8806,6 +8831,9 @@ export namespace Prisma {
     phone?: boolean
     type?: boolean
     status?: boolean
+    loginAttempts?: boolean
+    refreshToken?: boolean
+    lastLogin?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     updatedBy?: boolean
@@ -8816,7 +8844,7 @@ export namespace Prisma {
     role?: boolean | User$roleArgs<ExtArgs>
     personalAccessTokens?: boolean | User$personalAccessTokensArgs<ExtArgs>
     passwordHistory?: boolean | User$passwordHistoryArgs<ExtArgs>
-    addresss?: boolean | User$addresssArgs<ExtArgs>
+    address?: boolean | User$addressArgs<ExtArgs>
     transaction?: boolean | User$transactionArgs<ExtArgs>
     staff?: boolean | User$staffArgs<ExtArgs>
     patient?: boolean | User$patientArgs<ExtArgs>
@@ -8835,6 +8863,9 @@ export namespace Prisma {
     phone?: boolean
     type?: boolean
     status?: boolean
+    loginAttempts?: boolean
+    refreshToken?: boolean
+    lastLogin?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     updatedBy?: boolean
@@ -8855,6 +8886,9 @@ export namespace Prisma {
     phone?: boolean
     type?: boolean
     status?: boolean
+    loginAttempts?: boolean
+    refreshToken?: boolean
+    lastLogin?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     updatedBy?: boolean
@@ -8875,6 +8909,9 @@ export namespace Prisma {
     phone?: boolean
     type?: boolean
     status?: boolean
+    loginAttempts?: boolean
+    refreshToken?: boolean
+    lastLogin?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     updatedBy?: boolean
@@ -8884,12 +8921,12 @@ export namespace Prisma {
     balance?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "firstName" | "middleName" | "lastName" | "phone" | "type" | "status" | "createdAt" | "updatedAt" | "updatedBy" | "deletedAt" | "deletedBy" | "roleId" | "balance", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "firstName" | "middleName" | "lastName" | "phone" | "type" | "status" | "loginAttempts" | "refreshToken" | "lastLogin" | "createdAt" | "updatedAt" | "updatedBy" | "deletedAt" | "deletedBy" | "roleId" | "balance", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     role?: boolean | User$roleArgs<ExtArgs>
     personalAccessTokens?: boolean | User$personalAccessTokensArgs<ExtArgs>
     passwordHistory?: boolean | User$passwordHistoryArgs<ExtArgs>
-    addresss?: boolean | User$addresssArgs<ExtArgs>
+    address?: boolean | User$addressArgs<ExtArgs>
     transaction?: boolean | User$transactionArgs<ExtArgs>
     staff?: boolean | User$staffArgs<ExtArgs>
     patient?: boolean | User$patientArgs<ExtArgs>
@@ -8910,7 +8947,7 @@ export namespace Prisma {
       role: Prisma.$RolePayload<ExtArgs> | null
       personalAccessTokens: Prisma.$PersonalAccessTokenPayload<ExtArgs>[]
       passwordHistory: Prisma.$PasswordHistoryPayload<ExtArgs>[]
-      addresss: Prisma.$AddressPayload<ExtArgs>[]
+      address: Prisma.$AddressPayload<ExtArgs>[]
       transaction: Prisma.$TransactionPayload<ExtArgs>[]
       staff: Prisma.$HospitalStaffPayload<ExtArgs> | null
       patient: Prisma.$PatientPayload<ExtArgs> | null
@@ -8927,6 +8964,9 @@ export namespace Prisma {
       phone: string[]
       type: $Enums.UserType
       status: $Enums.UserStatus
+      loginAttempts: number
+      refreshToken: string | null
+      lastLogin: Date | null
       createdAt: Date
       updatedAt: Date
       updatedBy: string | null
@@ -9331,7 +9371,7 @@ export namespace Prisma {
     role<T extends User$roleArgs<ExtArgs> = {}>(args?: Subset<T, User$roleArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     personalAccessTokens<T extends User$personalAccessTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$personalAccessTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PersonalAccessTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     passwordHistory<T extends User$passwordHistoryArgs<ExtArgs> = {}>(args?: Subset<T, User$passwordHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    addresss<T extends User$addresssArgs<ExtArgs> = {}>(args?: Subset<T, User$addresssArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    address<T extends User$addressArgs<ExtArgs> = {}>(args?: Subset<T, User$addressArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     transaction<T extends User$transactionArgs<ExtArgs> = {}>(args?: Subset<T, User$transactionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     staff<T extends User$staffArgs<ExtArgs> = {}>(args?: Subset<T, User$staffArgs<ExtArgs>>): Prisma__HospitalStaffClient<$Result.GetResult<Prisma.$HospitalStaffPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     patient<T extends User$patientArgs<ExtArgs> = {}>(args?: Subset<T, User$patientArgs<ExtArgs>>): Prisma__PatientClient<$Result.GetResult<Prisma.$PatientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -9375,6 +9415,9 @@ export namespace Prisma {
     readonly phone: FieldRef<"User", 'String[]'>
     readonly type: FieldRef<"User", 'UserType'>
     readonly status: FieldRef<"User", 'UserStatus'>
+    readonly loginAttempts: FieldRef<"User", 'Int'>
+    readonly refreshToken: FieldRef<"User", 'String'>
+    readonly lastLogin: FieldRef<"User", 'DateTime'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly updatedBy: FieldRef<"User", 'String'>
@@ -9845,9 +9888,9 @@ export namespace Prisma {
   }
 
   /**
-   * User.addresss
+   * User.address
    */
-  export type User$addresssArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$addressArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Address
      */
@@ -20297,6 +20340,9 @@ export namespace Prisma {
     phone: 'phone',
     type: 'type',
     status: 'status',
+    loginAttempts: 'loginAttempts',
+    refreshToken: 'refreshToken',
+    lastLogin: 'lastLogin',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     updatedBy: 'updatedBy',
@@ -20573,6 +20619,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
    * Reference to a field of type 'TransactionType'
    */
   export type EnumTransactionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransactionType'>
@@ -20653,20 +20713,6 @@ export namespace Prisma {
    * Reference to a field of type 'AddressType[]'
    */
   export type ListEnumAddressTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AddressType[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int'
-   */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int[]'
-   */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
 
@@ -21247,6 +21293,9 @@ export namespace Prisma {
     phone?: StringNullableListFilter<"User">
     type?: EnumUserTypeFilter<"User"> | $Enums.UserType
     status?: EnumUserStatusFilter<"User"> | $Enums.UserStatus
+    loginAttempts?: IntFilter<"User"> | number
+    refreshToken?: StringNullableFilter<"User"> | string | null
+    lastLogin?: DateTimeNullableFilter<"User"> | Date | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     updatedBy?: StringNullableFilter<"User"> | string | null
@@ -21257,7 +21306,7 @@ export namespace Prisma {
     role?: XOR<RoleNullableScalarRelationFilter, RoleWhereInput> | null
     personalAccessTokens?: PersonalAccessTokenListRelationFilter
     passwordHistory?: PasswordHistoryListRelationFilter
-    addresss?: AddressListRelationFilter
+    address?: AddressListRelationFilter
     transaction?: TransactionListRelationFilter
     staff?: XOR<HospitalStaffNullableScalarRelationFilter, HospitalStaffWhereInput> | null
     patient?: XOR<PatientNullableScalarRelationFilter, PatientWhereInput> | null
@@ -21275,6 +21324,9 @@ export namespace Prisma {
     phone?: SortOrder
     type?: SortOrder
     status?: SortOrder
+    loginAttempts?: SortOrder
+    refreshToken?: SortOrderInput | SortOrder
+    lastLogin?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     updatedBy?: SortOrderInput | SortOrder
@@ -21285,7 +21337,7 @@ export namespace Prisma {
     role?: RoleOrderByWithRelationInput
     personalAccessTokens?: PersonalAccessTokenOrderByRelationAggregateInput
     passwordHistory?: PasswordHistoryOrderByRelationAggregateInput
-    addresss?: AddressOrderByRelationAggregateInput
+    address?: AddressOrderByRelationAggregateInput
     transaction?: TransactionOrderByRelationAggregateInput
     staff?: HospitalStaffOrderByWithRelationInput
     patient?: PatientOrderByWithRelationInput
@@ -21306,6 +21358,9 @@ export namespace Prisma {
     phone?: StringNullableListFilter<"User">
     type?: EnumUserTypeFilter<"User"> | $Enums.UserType
     status?: EnumUserStatusFilter<"User"> | $Enums.UserStatus
+    loginAttempts?: IntFilter<"User"> | number
+    refreshToken?: StringNullableFilter<"User"> | string | null
+    lastLogin?: DateTimeNullableFilter<"User"> | Date | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     updatedBy?: StringNullableFilter<"User"> | string | null
@@ -21316,7 +21371,7 @@ export namespace Prisma {
     role?: XOR<RoleNullableScalarRelationFilter, RoleWhereInput> | null
     personalAccessTokens?: PersonalAccessTokenListRelationFilter
     passwordHistory?: PasswordHistoryListRelationFilter
-    addresss?: AddressListRelationFilter
+    address?: AddressListRelationFilter
     transaction?: TransactionListRelationFilter
     staff?: XOR<HospitalStaffNullableScalarRelationFilter, HospitalStaffWhereInput> | null
     patient?: XOR<PatientNullableScalarRelationFilter, PatientWhereInput> | null
@@ -21334,6 +21389,9 @@ export namespace Prisma {
     phone?: SortOrder
     type?: SortOrder
     status?: SortOrder
+    loginAttempts?: SortOrder
+    refreshToken?: SortOrderInput | SortOrder
+    lastLogin?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     updatedBy?: SortOrderInput | SortOrder
@@ -21361,6 +21419,9 @@ export namespace Prisma {
     phone?: StringNullableListFilter<"User">
     type?: EnumUserTypeWithAggregatesFilter<"User"> | $Enums.UserType
     status?: EnumUserStatusWithAggregatesFilter<"User"> | $Enums.UserStatus
+    loginAttempts?: IntWithAggregatesFilter<"User"> | number
+    refreshToken?: StringNullableWithAggregatesFilter<"User"> | string | null
+    lastLogin?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedBy?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -22598,6 +22659,9 @@ export namespace Prisma {
     phone?: UserCreatephoneInput | string[]
     type: $Enums.UserType
     status?: $Enums.UserStatus
+    loginAttempts?: number
+    refreshToken?: string | null
+    lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     updatedBy?: string | null
@@ -22607,7 +22671,7 @@ export namespace Prisma {
     role?: RoleCreateNestedOneWithoutUsersInput
     personalAccessTokens?: PersonalAccessTokenCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryCreateNestedManyWithoutUserInput
-    addresss?: AddressCreateNestedManyWithoutUserInput
+    address?: AddressCreateNestedManyWithoutUserInput
     transaction?: TransactionCreateNestedManyWithoutUserInput
     staff?: HospitalStaffCreateNestedOneWithoutUserInput
     patient?: PatientCreateNestedOneWithoutUserInput
@@ -22625,6 +22689,9 @@ export namespace Prisma {
     phone?: UserCreatephoneInput | string[]
     type: $Enums.UserType
     status?: $Enums.UserStatus
+    loginAttempts?: number
+    refreshToken?: string | null
+    lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     updatedBy?: string | null
@@ -22634,7 +22701,7 @@ export namespace Prisma {
     balance?: Decimal | DecimalJsLike | number | string
     personalAccessTokens?: PersonalAccessTokenUncheckedCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryUncheckedCreateNestedManyWithoutUserInput
-    addresss?: AddressUncheckedCreateNestedManyWithoutUserInput
+    address?: AddressUncheckedCreateNestedManyWithoutUserInput
     transaction?: TransactionUncheckedCreateNestedManyWithoutUserInput
     staff?: HospitalStaffUncheckedCreateNestedOneWithoutUserInput
     patient?: PatientUncheckedCreateNestedOneWithoutUserInput
@@ -22652,6 +22719,9 @@ export namespace Prisma {
     phone?: UserUpdatephoneInput | string[]
     type?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    loginAttempts?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22661,7 +22731,7 @@ export namespace Prisma {
     role?: RoleUpdateOneWithoutUsersNestedInput
     personalAccessTokens?: PersonalAccessTokenUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUpdateManyWithoutUserNestedInput
-    addresss?: AddressUpdateManyWithoutUserNestedInput
+    address?: AddressUpdateManyWithoutUserNestedInput
     transaction?: TransactionUpdateManyWithoutUserNestedInput
     staff?: HospitalStaffUpdateOneWithoutUserNestedInput
     patient?: PatientUpdateOneWithoutUserNestedInput
@@ -22679,6 +22749,9 @@ export namespace Prisma {
     phone?: UserUpdatephoneInput | string[]
     type?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    loginAttempts?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22688,7 +22761,7 @@ export namespace Prisma {
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     personalAccessTokens?: PersonalAccessTokenUncheckedUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUncheckedUpdateManyWithoutUserNestedInput
-    addresss?: AddressUncheckedUpdateManyWithoutUserNestedInput
+    address?: AddressUncheckedUpdateManyWithoutUserNestedInput
     transaction?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     staff?: HospitalStaffUncheckedUpdateOneWithoutUserNestedInput
     patient?: PatientUncheckedUpdateOneWithoutUserNestedInput
@@ -22706,6 +22779,9 @@ export namespace Prisma {
     phone?: UserCreatephoneInput | string[]
     type: $Enums.UserType
     status?: $Enums.UserStatus
+    loginAttempts?: number
+    refreshToken?: string | null
+    lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     updatedBy?: string | null
@@ -22725,6 +22801,9 @@ export namespace Prisma {
     phone?: UserUpdatephoneInput | string[]
     type?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    loginAttempts?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22743,6 +22822,9 @@ export namespace Prisma {
     phone?: UserUpdatephoneInput | string[]
     type?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    loginAttempts?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23061,7 +23143,7 @@ export namespace Prisma {
     updatedBy?: string | null
     deletedAt?: Date | string | null
     deletedBy?: string | null
-    user?: UserCreateNestedOneWithoutAddresssInput
+    user?: UserCreateNestedOneWithoutAddressInput
   }
 
   export type AddressUncheckedCreateInput = {
@@ -23093,7 +23175,7 @@ export namespace Prisma {
     updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
-    user?: UserUpdateOneWithoutAddresssNestedInput
+    user?: UserUpdateOneWithoutAddressNestedInput
   }
 
   export type AddressUncheckedUpdateInput = {
@@ -23999,6 +24081,17 @@ export namespace Prisma {
     not?: NestedEnumUserStatusFilter<$PrismaModel> | $Enums.UserStatus
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type RoleNullableScalarRelationFilter = {
     is?: RoleWhereInput | null
     isNot?: RoleWhereInput | null
@@ -24074,6 +24167,9 @@ export namespace Prisma {
     phone?: SortOrder
     type?: SortOrder
     status?: SortOrder
+    loginAttempts?: SortOrder
+    refreshToken?: SortOrder
+    lastLogin?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     updatedBy?: SortOrder
@@ -24084,6 +24180,7 @@ export namespace Prisma {
   }
 
   export type UserAvgOrderByAggregateInput = {
+    loginAttempts?: SortOrder
     balance?: SortOrder
   }
 
@@ -24096,6 +24193,9 @@ export namespace Prisma {
     lastName?: SortOrder
     type?: SortOrder
     status?: SortOrder
+    loginAttempts?: SortOrder
+    refreshToken?: SortOrder
+    lastLogin?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     updatedBy?: SortOrder
@@ -24114,6 +24214,9 @@ export namespace Prisma {
     lastName?: SortOrder
     type?: SortOrder
     status?: SortOrder
+    loginAttempts?: SortOrder
+    refreshToken?: SortOrder
+    lastLogin?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     updatedBy?: SortOrder
@@ -24124,6 +24227,7 @@ export namespace Prisma {
   }
 
   export type UserSumOrderByAggregateInput = {
+    loginAttempts?: SortOrder
     balance?: SortOrder
   }
 
@@ -24145,6 +24249,22 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumUserStatusFilter<$PrismaModel>
     _max?: NestedEnumUserStatusFilter<$PrismaModel>
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type EnumTransactionTypeFilter<$PrismaModel = never> = {
@@ -24459,17 +24579,6 @@ export namespace Prisma {
     _max?: NestedEnumAddressTypeFilter<$PrismaModel>
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type EnumGenderNullableFilter<$PrismaModel = never> = {
     equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel> | null
     in?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
@@ -24601,22 +24710,6 @@ export namespace Prisma {
 
   export type PatientSumOrderByAggregateInput = {
     patientId?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type EnumGenderNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -25301,6 +25394,14 @@ export namespace Prisma {
     set?: $Enums.UserStatus
   }
 
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type RoleUpdateOneWithoutUsersNestedInput = {
     create?: XOR<RoleCreateWithoutUsersInput, RoleUncheckedCreateWithoutUsersInput>
     connectOrCreate?: RoleCreateOrConnectWithoutUsersInput
@@ -25595,9 +25696,9 @@ export namespace Prisma {
     update?: XOR<XOR<HospitalUpdateToOneWithWhereWithoutStaffsInput, HospitalUpdateWithoutStaffsInput>, HospitalUncheckedUpdateWithoutStaffsInput>
   }
 
-  export type UserCreateNestedOneWithoutAddresssInput = {
-    create?: XOR<UserCreateWithoutAddresssInput, UserUncheckedCreateWithoutAddresssInput>
-    connectOrCreate?: UserCreateOrConnectWithoutAddresssInput
+  export type UserCreateNestedOneWithoutAddressInput = {
+    create?: XOR<UserCreateWithoutAddressInput, UserUncheckedCreateWithoutAddressInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAddressInput
     connect?: UserWhereUniqueInput
   }
 
@@ -25605,14 +25706,14 @@ export namespace Prisma {
     set?: $Enums.AddressType
   }
 
-  export type UserUpdateOneWithoutAddresssNestedInput = {
-    create?: XOR<UserCreateWithoutAddresssInput, UserUncheckedCreateWithoutAddresssInput>
-    connectOrCreate?: UserCreateOrConnectWithoutAddresssInput
-    upsert?: UserUpsertWithoutAddresssInput
+  export type UserUpdateOneWithoutAddressNestedInput = {
+    create?: XOR<UserCreateWithoutAddressInput, UserUncheckedCreateWithoutAddressInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAddressInput
+    upsert?: UserUpsertWithoutAddressInput
     disconnect?: UserWhereInput | boolean
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAddresssInput, UserUpdateWithoutAddresssInput>, UserUncheckedUpdateWithoutAddresssInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAddressInput, UserUpdateWithoutAddressInput>, UserUncheckedUpdateWithoutAddressInput>
   }
 
   export type PatientCreatespokenLanguagesInput = {
@@ -25649,14 +25750,6 @@ export namespace Prisma {
     connectOrCreate?: NextOfKinCreateOrConnectWithoutPatientInput | NextOfKinCreateOrConnectWithoutPatientInput[]
     createMany?: NextOfKinCreateManyPatientInputEnvelope
     connect?: NextOfKinWhereUniqueInput | NextOfKinWhereUniqueInput[]
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type NullableEnumGenderFieldUpdateOperationsInput = {
@@ -26046,6 +26139,33 @@ export namespace Prisma {
     _max?: NestedEnumUserStatusFilter<$PrismaModel>
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type NestedEnumTransactionTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.TransactionType | EnumTransactionTypeFieldRefInput<$PrismaModel>
     in?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
@@ -26181,33 +26301,6 @@ export namespace Prisma {
     in?: $Enums.BillingType[] | ListEnumBillingTypeFieldRefInput<$PrismaModel>
     notIn?: $Enums.BillingType[] | ListEnumBillingTypeFieldRefInput<$PrismaModel>
     not?: NestedEnumBillingTypeFilter<$PrismaModel> | $Enums.BillingType
-  }
-
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type NestedEnumGenderNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -26624,6 +26717,9 @@ export namespace Prisma {
     phone?: UserCreatephoneInput | string[]
     type: $Enums.UserType
     status?: $Enums.UserStatus
+    loginAttempts?: number
+    refreshToken?: string | null
+    lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     updatedBy?: string | null
@@ -26632,7 +26728,7 @@ export namespace Prisma {
     balance?: Decimal | DecimalJsLike | number | string
     personalAccessTokens?: PersonalAccessTokenCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryCreateNestedManyWithoutUserInput
-    addresss?: AddressCreateNestedManyWithoutUserInput
+    address?: AddressCreateNestedManyWithoutUserInput
     transaction?: TransactionCreateNestedManyWithoutUserInput
     staff?: HospitalStaffCreateNestedOneWithoutUserInput
     patient?: PatientCreateNestedOneWithoutUserInput
@@ -26650,6 +26746,9 @@ export namespace Prisma {
     phone?: UserCreatephoneInput | string[]
     type: $Enums.UserType
     status?: $Enums.UserStatus
+    loginAttempts?: number
+    refreshToken?: string | null
+    lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     updatedBy?: string | null
@@ -26658,7 +26757,7 @@ export namespace Prisma {
     balance?: Decimal | DecimalJsLike | number | string
     personalAccessTokens?: PersonalAccessTokenUncheckedCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryUncheckedCreateNestedManyWithoutUserInput
-    addresss?: AddressUncheckedCreateNestedManyWithoutUserInput
+    address?: AddressUncheckedCreateNestedManyWithoutUserInput
     transaction?: TransactionUncheckedCreateNestedManyWithoutUserInput
     staff?: HospitalStaffUncheckedCreateNestedOneWithoutUserInput
     patient?: PatientUncheckedCreateNestedOneWithoutUserInput
@@ -26738,6 +26837,9 @@ export namespace Prisma {
     phone?: StringNullableListFilter<"User">
     type?: EnumUserTypeFilter<"User"> | $Enums.UserType
     status?: EnumUserStatusFilter<"User"> | $Enums.UserStatus
+    loginAttempts?: IntFilter<"User"> | number
+    refreshToken?: StringNullableFilter<"User"> | string | null
+    lastLogin?: DateTimeNullableFilter<"User"> | Date | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     updatedBy?: StringNullableFilter<"User"> | string | null
@@ -27482,6 +27584,9 @@ export namespace Prisma {
     phone?: UserCreatephoneInput | string[]
     type: $Enums.UserType
     status?: $Enums.UserStatus
+    loginAttempts?: number
+    refreshToken?: string | null
+    lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     updatedBy?: string | null
@@ -27491,7 +27596,7 @@ export namespace Prisma {
     role?: RoleCreateNestedOneWithoutUsersInput
     personalAccessTokens?: PersonalAccessTokenCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryCreateNestedManyWithoutUserInput
-    addresss?: AddressCreateNestedManyWithoutUserInput
+    address?: AddressCreateNestedManyWithoutUserInput
     staff?: HospitalStaffCreateNestedOneWithoutUserInput
     patient?: PatientCreateNestedOneWithoutUserInput
     nhisWorker?: NHISWorkerCreateNestedOneWithoutUserInput
@@ -27508,6 +27613,9 @@ export namespace Prisma {
     phone?: UserCreatephoneInput | string[]
     type: $Enums.UserType
     status?: $Enums.UserStatus
+    loginAttempts?: number
+    refreshToken?: string | null
+    lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     updatedBy?: string | null
@@ -27517,7 +27625,7 @@ export namespace Prisma {
     balance?: Decimal | DecimalJsLike | number | string
     personalAccessTokens?: PersonalAccessTokenUncheckedCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryUncheckedCreateNestedManyWithoutUserInput
-    addresss?: AddressUncheckedCreateNestedManyWithoutUserInput
+    address?: AddressUncheckedCreateNestedManyWithoutUserInput
     staff?: HospitalStaffUncheckedCreateNestedOneWithoutUserInput
     patient?: PatientUncheckedCreateNestedOneWithoutUserInput
     nhisWorker?: NHISWorkerUncheckedCreateNestedOneWithoutUserInput
@@ -27550,6 +27658,9 @@ export namespace Prisma {
     phone?: UserUpdatephoneInput | string[]
     type?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    loginAttempts?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27559,7 +27670,7 @@ export namespace Prisma {
     role?: RoleUpdateOneWithoutUsersNestedInput
     personalAccessTokens?: PersonalAccessTokenUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUpdateManyWithoutUserNestedInput
-    addresss?: AddressUpdateManyWithoutUserNestedInput
+    address?: AddressUpdateManyWithoutUserNestedInput
     staff?: HospitalStaffUpdateOneWithoutUserNestedInput
     patient?: PatientUpdateOneWithoutUserNestedInput
     nhisWorker?: NHISWorkerUpdateOneWithoutUserNestedInput
@@ -27576,6 +27687,9 @@ export namespace Prisma {
     phone?: UserUpdatephoneInput | string[]
     type?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    loginAttempts?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27585,7 +27699,7 @@ export namespace Prisma {
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     personalAccessTokens?: PersonalAccessTokenUncheckedUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUncheckedUpdateManyWithoutUserNestedInput
-    addresss?: AddressUncheckedUpdateManyWithoutUserNestedInput
+    address?: AddressUncheckedUpdateManyWithoutUserNestedInput
     staff?: HospitalStaffUncheckedUpdateOneWithoutUserNestedInput
     patient?: PatientUncheckedUpdateOneWithoutUserNestedInput
     nhisWorker?: NHISWorkerUncheckedUpdateOneWithoutUserNestedInput
@@ -27602,6 +27716,9 @@ export namespace Prisma {
     phone?: UserCreatephoneInput | string[]
     type: $Enums.UserType
     status?: $Enums.UserStatus
+    loginAttempts?: number
+    refreshToken?: string | null
+    lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     updatedBy?: string | null
@@ -27610,7 +27727,7 @@ export namespace Prisma {
     balance?: Decimal | DecimalJsLike | number | string
     role?: RoleCreateNestedOneWithoutUsersInput
     personalAccessTokens?: PersonalAccessTokenCreateNestedManyWithoutUserInput
-    addresss?: AddressCreateNestedManyWithoutUserInput
+    address?: AddressCreateNestedManyWithoutUserInput
     transaction?: TransactionCreateNestedManyWithoutUserInput
     staff?: HospitalStaffCreateNestedOneWithoutUserInput
     patient?: PatientCreateNestedOneWithoutUserInput
@@ -27628,6 +27745,9 @@ export namespace Prisma {
     phone?: UserCreatephoneInput | string[]
     type: $Enums.UserType
     status?: $Enums.UserStatus
+    loginAttempts?: number
+    refreshToken?: string | null
+    lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     updatedBy?: string | null
@@ -27636,7 +27756,7 @@ export namespace Prisma {
     roleId?: string | null
     balance?: Decimal | DecimalJsLike | number | string
     personalAccessTokens?: PersonalAccessTokenUncheckedCreateNestedManyWithoutUserInput
-    addresss?: AddressUncheckedCreateNestedManyWithoutUserInput
+    address?: AddressUncheckedCreateNestedManyWithoutUserInput
     transaction?: TransactionUncheckedCreateNestedManyWithoutUserInput
     staff?: HospitalStaffUncheckedCreateNestedOneWithoutUserInput
     patient?: PatientUncheckedCreateNestedOneWithoutUserInput
@@ -27670,6 +27790,9 @@ export namespace Prisma {
     phone?: UserUpdatephoneInput | string[]
     type?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    loginAttempts?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27678,7 +27801,7 @@ export namespace Prisma {
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     role?: RoleUpdateOneWithoutUsersNestedInput
     personalAccessTokens?: PersonalAccessTokenUpdateManyWithoutUserNestedInput
-    addresss?: AddressUpdateManyWithoutUserNestedInput
+    address?: AddressUpdateManyWithoutUserNestedInput
     transaction?: TransactionUpdateManyWithoutUserNestedInput
     staff?: HospitalStaffUpdateOneWithoutUserNestedInput
     patient?: PatientUpdateOneWithoutUserNestedInput
@@ -27696,6 +27819,9 @@ export namespace Prisma {
     phone?: UserUpdatephoneInput | string[]
     type?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    loginAttempts?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27704,7 +27830,7 @@ export namespace Prisma {
     roleId?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     personalAccessTokens?: PersonalAccessTokenUncheckedUpdateManyWithoutUserNestedInput
-    addresss?: AddressUncheckedUpdateManyWithoutUserNestedInput
+    address?: AddressUncheckedUpdateManyWithoutUserNestedInput
     transaction?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     staff?: HospitalStaffUncheckedUpdateOneWithoutUserNestedInput
     patient?: PatientUncheckedUpdateOneWithoutUserNestedInput
@@ -27722,6 +27848,9 @@ export namespace Prisma {
     phone?: UserCreatephoneInput | string[]
     type: $Enums.UserType
     status?: $Enums.UserStatus
+    loginAttempts?: number
+    refreshToken?: string | null
+    lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     updatedBy?: string | null
@@ -27730,7 +27859,7 @@ export namespace Prisma {
     balance?: Decimal | DecimalJsLike | number | string
     role?: RoleCreateNestedOneWithoutUsersInput
     passwordHistory?: PasswordHistoryCreateNestedManyWithoutUserInput
-    addresss?: AddressCreateNestedManyWithoutUserInput
+    address?: AddressCreateNestedManyWithoutUserInput
     transaction?: TransactionCreateNestedManyWithoutUserInput
     staff?: HospitalStaffCreateNestedOneWithoutUserInput
     patient?: PatientCreateNestedOneWithoutUserInput
@@ -27748,6 +27877,9 @@ export namespace Prisma {
     phone?: UserCreatephoneInput | string[]
     type: $Enums.UserType
     status?: $Enums.UserStatus
+    loginAttempts?: number
+    refreshToken?: string | null
+    lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     updatedBy?: string | null
@@ -27756,7 +27888,7 @@ export namespace Prisma {
     roleId?: string | null
     balance?: Decimal | DecimalJsLike | number | string
     passwordHistory?: PasswordHistoryUncheckedCreateNestedManyWithoutUserInput
-    addresss?: AddressUncheckedCreateNestedManyWithoutUserInput
+    address?: AddressUncheckedCreateNestedManyWithoutUserInput
     transaction?: TransactionUncheckedCreateNestedManyWithoutUserInput
     staff?: HospitalStaffUncheckedCreateNestedOneWithoutUserInput
     patient?: PatientUncheckedCreateNestedOneWithoutUserInput
@@ -27790,6 +27922,9 @@ export namespace Prisma {
     phone?: UserUpdatephoneInput | string[]
     type?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    loginAttempts?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27798,7 +27933,7 @@ export namespace Prisma {
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     role?: RoleUpdateOneWithoutUsersNestedInput
     passwordHistory?: PasswordHistoryUpdateManyWithoutUserNestedInput
-    addresss?: AddressUpdateManyWithoutUserNestedInput
+    address?: AddressUpdateManyWithoutUserNestedInput
     transaction?: TransactionUpdateManyWithoutUserNestedInput
     staff?: HospitalStaffUpdateOneWithoutUserNestedInput
     patient?: PatientUpdateOneWithoutUserNestedInput
@@ -27816,6 +27951,9 @@ export namespace Prisma {
     phone?: UserUpdatephoneInput | string[]
     type?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    loginAttempts?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27824,7 +27962,7 @@ export namespace Prisma {
     roleId?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     passwordHistory?: PasswordHistoryUncheckedUpdateManyWithoutUserNestedInput
-    addresss?: AddressUncheckedUpdateManyWithoutUserNestedInput
+    address?: AddressUncheckedUpdateManyWithoutUserNestedInput
     transaction?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     staff?: HospitalStaffUncheckedUpdateOneWithoutUserNestedInput
     patient?: PatientUncheckedUpdateOneWithoutUserNestedInput
@@ -27842,6 +27980,9 @@ export namespace Prisma {
     phone?: UserCreatephoneInput | string[]
     type: $Enums.UserType
     status?: $Enums.UserStatus
+    loginAttempts?: number
+    refreshToken?: string | null
+    lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     updatedBy?: string | null
@@ -27851,7 +27992,7 @@ export namespace Prisma {
     role?: RoleCreateNestedOneWithoutUsersInput
     personalAccessTokens?: PersonalAccessTokenCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryCreateNestedManyWithoutUserInput
-    addresss?: AddressCreateNestedManyWithoutUserInput
+    address?: AddressCreateNestedManyWithoutUserInput
     transaction?: TransactionCreateNestedManyWithoutUserInput
     patient?: PatientCreateNestedOneWithoutUserInput
     nhisWorker?: NHISWorkerCreateNestedOneWithoutUserInput
@@ -27868,6 +28009,9 @@ export namespace Prisma {
     phone?: UserCreatephoneInput | string[]
     type: $Enums.UserType
     status?: $Enums.UserStatus
+    loginAttempts?: number
+    refreshToken?: string | null
+    lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     updatedBy?: string | null
@@ -27877,7 +28021,7 @@ export namespace Prisma {
     balance?: Decimal | DecimalJsLike | number | string
     personalAccessTokens?: PersonalAccessTokenUncheckedCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryUncheckedCreateNestedManyWithoutUserInput
-    addresss?: AddressUncheckedCreateNestedManyWithoutUserInput
+    address?: AddressUncheckedCreateNestedManyWithoutUserInput
     transaction?: TransactionUncheckedCreateNestedManyWithoutUserInput
     patient?: PatientUncheckedCreateNestedOneWithoutUserInput
     nhisWorker?: NHISWorkerUncheckedCreateNestedOneWithoutUserInput
@@ -27959,6 +28103,9 @@ export namespace Prisma {
     phone?: UserUpdatephoneInput | string[]
     type?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    loginAttempts?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27968,7 +28115,7 @@ export namespace Prisma {
     role?: RoleUpdateOneWithoutUsersNestedInput
     personalAccessTokens?: PersonalAccessTokenUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUpdateManyWithoutUserNestedInput
-    addresss?: AddressUpdateManyWithoutUserNestedInput
+    address?: AddressUpdateManyWithoutUserNestedInput
     transaction?: TransactionUpdateManyWithoutUserNestedInput
     patient?: PatientUpdateOneWithoutUserNestedInput
     nhisWorker?: NHISWorkerUpdateOneWithoutUserNestedInput
@@ -27985,6 +28132,9 @@ export namespace Prisma {
     phone?: UserUpdatephoneInput | string[]
     type?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    loginAttempts?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27994,7 +28144,7 @@ export namespace Prisma {
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     personalAccessTokens?: PersonalAccessTokenUncheckedUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUncheckedUpdateManyWithoutUserNestedInput
-    addresss?: AddressUncheckedUpdateManyWithoutUserNestedInput
+    address?: AddressUncheckedUpdateManyWithoutUserNestedInput
     transaction?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     patient?: PatientUncheckedUpdateOneWithoutUserNestedInput
     nhisWorker?: NHISWorkerUncheckedUpdateOneWithoutUserNestedInput
@@ -28056,7 +28206,7 @@ export namespace Prisma {
     patients?: PatientUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
-  export type UserCreateWithoutAddresssInput = {
+  export type UserCreateWithoutAddressInput = {
     id?: string
     email: string
     password: string
@@ -28066,6 +28216,9 @@ export namespace Prisma {
     phone?: UserCreatephoneInput | string[]
     type: $Enums.UserType
     status?: $Enums.UserStatus
+    loginAttempts?: number
+    refreshToken?: string | null
+    lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     updatedBy?: string | null
@@ -28082,7 +28235,7 @@ export namespace Prisma {
     publicHealthWorker?: PublicHealthWorkerCreateNestedOneWithoutUserInput
   }
 
-  export type UserUncheckedCreateWithoutAddresssInput = {
+  export type UserUncheckedCreateWithoutAddressInput = {
     id?: string
     email: string
     password: string
@@ -28092,6 +28245,9 @@ export namespace Prisma {
     phone?: UserCreatephoneInput | string[]
     type: $Enums.UserType
     status?: $Enums.UserStatus
+    loginAttempts?: number
+    refreshToken?: string | null
+    lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     updatedBy?: string | null
@@ -28108,23 +28264,23 @@ export namespace Prisma {
     publicHealthWorker?: PublicHealthWorkerUncheckedCreateNestedOneWithoutUserInput
   }
 
-  export type UserCreateOrConnectWithoutAddresssInput = {
+  export type UserCreateOrConnectWithoutAddressInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutAddresssInput, UserUncheckedCreateWithoutAddresssInput>
+    create: XOR<UserCreateWithoutAddressInput, UserUncheckedCreateWithoutAddressInput>
   }
 
-  export type UserUpsertWithoutAddresssInput = {
-    update: XOR<UserUpdateWithoutAddresssInput, UserUncheckedUpdateWithoutAddresssInput>
-    create: XOR<UserCreateWithoutAddresssInput, UserUncheckedCreateWithoutAddresssInput>
+  export type UserUpsertWithoutAddressInput = {
+    update: XOR<UserUpdateWithoutAddressInput, UserUncheckedUpdateWithoutAddressInput>
+    create: XOR<UserCreateWithoutAddressInput, UserUncheckedCreateWithoutAddressInput>
     where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutAddresssInput = {
+  export type UserUpdateToOneWithWhereWithoutAddressInput = {
     where?: UserWhereInput
-    data: XOR<UserUpdateWithoutAddresssInput, UserUncheckedUpdateWithoutAddresssInput>
+    data: XOR<UserUpdateWithoutAddressInput, UserUncheckedUpdateWithoutAddressInput>
   }
 
-  export type UserUpdateWithoutAddresssInput = {
+  export type UserUpdateWithoutAddressInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -28134,6 +28290,9 @@ export namespace Prisma {
     phone?: UserUpdatephoneInput | string[]
     type?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    loginAttempts?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28150,7 +28309,7 @@ export namespace Prisma {
     publicHealthWorker?: PublicHealthWorkerUpdateOneWithoutUserNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutAddresssInput = {
+  export type UserUncheckedUpdateWithoutAddressInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -28160,6 +28319,9 @@ export namespace Prisma {
     phone?: UserUpdatephoneInput | string[]
     type?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    loginAttempts?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28224,6 +28386,9 @@ export namespace Prisma {
     phone?: UserCreatephoneInput | string[]
     type: $Enums.UserType
     status?: $Enums.UserStatus
+    loginAttempts?: number
+    refreshToken?: string | null
+    lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     updatedBy?: string | null
@@ -28233,7 +28398,7 @@ export namespace Prisma {
     role?: RoleCreateNestedOneWithoutUsersInput
     personalAccessTokens?: PersonalAccessTokenCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryCreateNestedManyWithoutUserInput
-    addresss?: AddressCreateNestedManyWithoutUserInput
+    address?: AddressCreateNestedManyWithoutUserInput
     transaction?: TransactionCreateNestedManyWithoutUserInput
     staff?: HospitalStaffCreateNestedOneWithoutUserInput
     nhisWorker?: NHISWorkerCreateNestedOneWithoutUserInput
@@ -28250,6 +28415,9 @@ export namespace Prisma {
     phone?: UserCreatephoneInput | string[]
     type: $Enums.UserType
     status?: $Enums.UserStatus
+    loginAttempts?: number
+    refreshToken?: string | null
+    lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     updatedBy?: string | null
@@ -28259,7 +28427,7 @@ export namespace Prisma {
     balance?: Decimal | DecimalJsLike | number | string
     personalAccessTokens?: PersonalAccessTokenUncheckedCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryUncheckedCreateNestedManyWithoutUserInput
-    addresss?: AddressUncheckedCreateNestedManyWithoutUserInput
+    address?: AddressUncheckedCreateNestedManyWithoutUserInput
     transaction?: TransactionUncheckedCreateNestedManyWithoutUserInput
     staff?: HospitalStaffUncheckedCreateNestedOneWithoutUserInput
     nhisWorker?: NHISWorkerUncheckedCreateNestedOneWithoutUserInput
@@ -28408,6 +28576,9 @@ export namespace Prisma {
     phone?: UserUpdatephoneInput | string[]
     type?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    loginAttempts?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28417,7 +28588,7 @@ export namespace Prisma {
     role?: RoleUpdateOneWithoutUsersNestedInput
     personalAccessTokens?: PersonalAccessTokenUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUpdateManyWithoutUserNestedInput
-    addresss?: AddressUpdateManyWithoutUserNestedInput
+    address?: AddressUpdateManyWithoutUserNestedInput
     transaction?: TransactionUpdateManyWithoutUserNestedInput
     staff?: HospitalStaffUpdateOneWithoutUserNestedInput
     nhisWorker?: NHISWorkerUpdateOneWithoutUserNestedInput
@@ -28434,6 +28605,9 @@ export namespace Prisma {
     phone?: UserUpdatephoneInput | string[]
     type?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    loginAttempts?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28443,7 +28617,7 @@ export namespace Prisma {
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     personalAccessTokens?: PersonalAccessTokenUncheckedUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUncheckedUpdateManyWithoutUserNestedInput
-    addresss?: AddressUncheckedUpdateManyWithoutUserNestedInput
+    address?: AddressUncheckedUpdateManyWithoutUserNestedInput
     transaction?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     staff?: HospitalStaffUncheckedUpdateOneWithoutUserNestedInput
     nhisWorker?: NHISWorkerUncheckedUpdateOneWithoutUserNestedInput
@@ -28666,6 +28840,9 @@ export namespace Prisma {
     phone?: UserCreatephoneInput | string[]
     type: $Enums.UserType
     status?: $Enums.UserStatus
+    loginAttempts?: number
+    refreshToken?: string | null
+    lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     updatedBy?: string | null
@@ -28675,7 +28852,7 @@ export namespace Prisma {
     role?: RoleCreateNestedOneWithoutUsersInput
     personalAccessTokens?: PersonalAccessTokenCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryCreateNestedManyWithoutUserInput
-    addresss?: AddressCreateNestedManyWithoutUserInput
+    address?: AddressCreateNestedManyWithoutUserInput
     transaction?: TransactionCreateNestedManyWithoutUserInput
     staff?: HospitalStaffCreateNestedOneWithoutUserInput
     patient?: PatientCreateNestedOneWithoutUserInput
@@ -28692,6 +28869,9 @@ export namespace Prisma {
     phone?: UserCreatephoneInput | string[]
     type: $Enums.UserType
     status?: $Enums.UserStatus
+    loginAttempts?: number
+    refreshToken?: string | null
+    lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     updatedBy?: string | null
@@ -28701,7 +28881,7 @@ export namespace Prisma {
     balance?: Decimal | DecimalJsLike | number | string
     personalAccessTokens?: PersonalAccessTokenUncheckedCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryUncheckedCreateNestedManyWithoutUserInput
-    addresss?: AddressUncheckedCreateNestedManyWithoutUserInput
+    address?: AddressUncheckedCreateNestedManyWithoutUserInput
     transaction?: TransactionUncheckedCreateNestedManyWithoutUserInput
     staff?: HospitalStaffUncheckedCreateNestedOneWithoutUserInput
     patient?: PatientUncheckedCreateNestedOneWithoutUserInput
@@ -28767,6 +28947,9 @@ export namespace Prisma {
     phone?: UserUpdatephoneInput | string[]
     type?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    loginAttempts?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28776,7 +28959,7 @@ export namespace Prisma {
     role?: RoleUpdateOneWithoutUsersNestedInput
     personalAccessTokens?: PersonalAccessTokenUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUpdateManyWithoutUserNestedInput
-    addresss?: AddressUpdateManyWithoutUserNestedInput
+    address?: AddressUpdateManyWithoutUserNestedInput
     transaction?: TransactionUpdateManyWithoutUserNestedInput
     staff?: HospitalStaffUpdateOneWithoutUserNestedInput
     patient?: PatientUpdateOneWithoutUserNestedInput
@@ -28793,6 +28976,9 @@ export namespace Prisma {
     phone?: UserUpdatephoneInput | string[]
     type?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    loginAttempts?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28802,7 +28988,7 @@ export namespace Prisma {
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     personalAccessTokens?: PersonalAccessTokenUncheckedUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUncheckedUpdateManyWithoutUserNestedInput
-    addresss?: AddressUncheckedUpdateManyWithoutUserNestedInput
+    address?: AddressUncheckedUpdateManyWithoutUserNestedInput
     transaction?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     staff?: HospitalStaffUncheckedUpdateOneWithoutUserNestedInput
     patient?: PatientUncheckedUpdateOneWithoutUserNestedInput
@@ -28858,6 +29044,9 @@ export namespace Prisma {
     phone?: UserCreatephoneInput | string[]
     type: $Enums.UserType
     status?: $Enums.UserStatus
+    loginAttempts?: number
+    refreshToken?: string | null
+    lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     updatedBy?: string | null
@@ -28867,7 +29056,7 @@ export namespace Prisma {
     role?: RoleCreateNestedOneWithoutUsersInput
     personalAccessTokens?: PersonalAccessTokenCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryCreateNestedManyWithoutUserInput
-    addresss?: AddressCreateNestedManyWithoutUserInput
+    address?: AddressCreateNestedManyWithoutUserInput
     transaction?: TransactionCreateNestedManyWithoutUserInput
     staff?: HospitalStaffCreateNestedOneWithoutUserInput
     patient?: PatientCreateNestedOneWithoutUserInput
@@ -28884,6 +29073,9 @@ export namespace Prisma {
     phone?: UserCreatephoneInput | string[]
     type: $Enums.UserType
     status?: $Enums.UserStatus
+    loginAttempts?: number
+    refreshToken?: string | null
+    lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     updatedBy?: string | null
@@ -28893,7 +29085,7 @@ export namespace Prisma {
     balance?: Decimal | DecimalJsLike | number | string
     personalAccessTokens?: PersonalAccessTokenUncheckedCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryUncheckedCreateNestedManyWithoutUserInput
-    addresss?: AddressUncheckedCreateNestedManyWithoutUserInput
+    address?: AddressUncheckedCreateNestedManyWithoutUserInput
     transaction?: TransactionUncheckedCreateNestedManyWithoutUserInput
     staff?: HospitalStaffUncheckedCreateNestedOneWithoutUserInput
     patient?: PatientUncheckedCreateNestedOneWithoutUserInput
@@ -28926,6 +29118,9 @@ export namespace Prisma {
     phone?: UserUpdatephoneInput | string[]
     type?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    loginAttempts?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28935,7 +29130,7 @@ export namespace Prisma {
     role?: RoleUpdateOneWithoutUsersNestedInput
     personalAccessTokens?: PersonalAccessTokenUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUpdateManyWithoutUserNestedInput
-    addresss?: AddressUpdateManyWithoutUserNestedInput
+    address?: AddressUpdateManyWithoutUserNestedInput
     transaction?: TransactionUpdateManyWithoutUserNestedInput
     staff?: HospitalStaffUpdateOneWithoutUserNestedInput
     patient?: PatientUpdateOneWithoutUserNestedInput
@@ -28952,6 +29147,9 @@ export namespace Prisma {
     phone?: UserUpdatephoneInput | string[]
     type?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    loginAttempts?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28961,7 +29159,7 @@ export namespace Prisma {
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     personalAccessTokens?: PersonalAccessTokenUncheckedUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUncheckedUpdateManyWithoutUserNestedInput
-    addresss?: AddressUncheckedUpdateManyWithoutUserNestedInput
+    address?: AddressUncheckedUpdateManyWithoutUserNestedInput
     transaction?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     staff?: HospitalStaffUncheckedUpdateOneWithoutUserNestedInput
     patient?: PatientUncheckedUpdateOneWithoutUserNestedInput
@@ -29227,6 +29425,9 @@ export namespace Prisma {
     phone?: UserCreatephoneInput | string[]
     type: $Enums.UserType
     status?: $Enums.UserStatus
+    loginAttempts?: number
+    refreshToken?: string | null
+    lastLogin?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     updatedBy?: string | null
@@ -29284,6 +29485,9 @@ export namespace Prisma {
     phone?: UserUpdatephoneInput | string[]
     type?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    loginAttempts?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29292,7 +29496,7 @@ export namespace Prisma {
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     personalAccessTokens?: PersonalAccessTokenUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUpdateManyWithoutUserNestedInput
-    addresss?: AddressUpdateManyWithoutUserNestedInput
+    address?: AddressUpdateManyWithoutUserNestedInput
     transaction?: TransactionUpdateManyWithoutUserNestedInput
     staff?: HospitalStaffUpdateOneWithoutUserNestedInput
     patient?: PatientUpdateOneWithoutUserNestedInput
@@ -29310,6 +29514,9 @@ export namespace Prisma {
     phone?: UserUpdatephoneInput | string[]
     type?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    loginAttempts?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29318,7 +29525,7 @@ export namespace Prisma {
     balance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     personalAccessTokens?: PersonalAccessTokenUncheckedUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUncheckedUpdateManyWithoutUserNestedInput
-    addresss?: AddressUncheckedUpdateManyWithoutUserNestedInput
+    address?: AddressUncheckedUpdateManyWithoutUserNestedInput
     transaction?: TransactionUncheckedUpdateManyWithoutUserNestedInput
     staff?: HospitalStaffUncheckedUpdateOneWithoutUserNestedInput
     patient?: PatientUncheckedUpdateOneWithoutUserNestedInput
@@ -29336,6 +29543,9 @@ export namespace Prisma {
     phone?: UserUpdatephoneInput | string[]
     type?: EnumUserTypeFieldUpdateOperationsInput | $Enums.UserType
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    loginAttempts?: IntFieldUpdateOperationsInput | number
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedBy?: NullableStringFieldUpdateOperationsInput | string | null
