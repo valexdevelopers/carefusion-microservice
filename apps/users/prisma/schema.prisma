@@ -16,8 +16,9 @@ datasource db {
 
 
 model Hospital {
-  name                  String
+
   id                    String   @id @default(uuid())
+  name                  String
   address               String
   logo                  String?
   phone                 String[]
@@ -34,11 +35,12 @@ model Hospital {
   paymentPlan           PaymentPlan?
   createdAt             DateTime @default(now())
   updatedAt             DateTime @updatedAt
+  deletedAt             DateTime? @updatedAt
+  deletedBy             String?
+
 
   staffs                 HospitalStaff[]
   patients               Patient[]
-
-  
 
 }
 

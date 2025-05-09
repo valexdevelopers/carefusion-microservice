@@ -1,4 +1,4 @@
-import { UserStatus, UserType } from "@shared/enums/users/user.enums";
+import { PaymentPlan, UserStatus, UserType } from "@shared/enums/users/user.enums";
 
 export class UserDto {
     id: string;
@@ -32,3 +32,27 @@ export class UserDto {
     // nhisWorker?: NHISWorker | null;
     // publicHealthWorker?: PublicHealthWorker | null;
   };
+
+export interface HospitalDto {
+  id: string;
+  name: string;
+  address: string;
+  logo?: string;
+  phone: string[];
+  email: string;
+  city: string;
+  state: string;
+  country: string;
+  zipCode: string;
+  website?: string;
+  slogan?: string;
+  pobox?: string;
+  nfcCardFee: number;
+  registrationFee: number;
+  paymentPlan?: PaymentPlan;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt?: Date | null;
+  deletedBy?: string | null;
+}
+  

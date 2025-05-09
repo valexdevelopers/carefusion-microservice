@@ -2670,8 +2670,8 @@ export namespace Prisma {
   }
 
   export type HospitalMinAggregateOutputType = {
-    name: string | null
     id: string | null
+    name: string | null
     address: string | null
     logo: string | null
     email: string | null
@@ -2687,11 +2687,13 @@ export namespace Prisma {
     paymentPlan: $Enums.PaymentPlan | null
     createdAt: Date | null
     updatedAt: Date | null
+    deletedAt: Date | null
+    deletedBy: string | null
   }
 
   export type HospitalMaxAggregateOutputType = {
-    name: string | null
     id: string | null
+    name: string | null
     address: string | null
     logo: string | null
     email: string | null
@@ -2707,11 +2709,13 @@ export namespace Prisma {
     paymentPlan: $Enums.PaymentPlan | null
     createdAt: Date | null
     updatedAt: Date | null
+    deletedAt: Date | null
+    deletedBy: string | null
   }
 
   export type HospitalCountAggregateOutputType = {
-    name: number
     id: number
+    name: number
     address: number
     logo: number
     phone: number
@@ -2728,6 +2732,8 @@ export namespace Prisma {
     paymentPlan: number
     createdAt: number
     updatedAt: number
+    deletedAt: number
+    deletedBy: number
     _all: number
   }
 
@@ -2743,8 +2749,8 @@ export namespace Prisma {
   }
 
   export type HospitalMinAggregateInputType = {
-    name?: true
     id?: true
+    name?: true
     address?: true
     logo?: true
     email?: true
@@ -2760,11 +2766,13 @@ export namespace Prisma {
     paymentPlan?: true
     createdAt?: true
     updatedAt?: true
+    deletedAt?: true
+    deletedBy?: true
   }
 
   export type HospitalMaxAggregateInputType = {
-    name?: true
     id?: true
+    name?: true
     address?: true
     logo?: true
     email?: true
@@ -2780,11 +2788,13 @@ export namespace Prisma {
     paymentPlan?: true
     createdAt?: true
     updatedAt?: true
+    deletedAt?: true
+    deletedBy?: true
   }
 
   export type HospitalCountAggregateInputType = {
-    name?: true
     id?: true
+    name?: true
     address?: true
     logo?: true
     phone?: true
@@ -2801,6 +2811,8 @@ export namespace Prisma {
     paymentPlan?: true
     createdAt?: true
     updatedAt?: true
+    deletedAt?: true
+    deletedBy?: true
     _all?: true
   }
 
@@ -2891,8 +2903,8 @@ export namespace Prisma {
   }
 
   export type HospitalGroupByOutputType = {
-    name: string
     id: string
+    name: string
     address: string
     logo: string | null
     phone: string[]
@@ -2909,6 +2921,8 @@ export namespace Prisma {
     paymentPlan: $Enums.PaymentPlan | null
     createdAt: Date
     updatedAt: Date
+    deletedAt: Date | null
+    deletedBy: string | null
     _count: HospitalCountAggregateOutputType | null
     _avg: HospitalAvgAggregateOutputType | null
     _sum: HospitalSumAggregateOutputType | null
@@ -2931,8 +2945,8 @@ export namespace Prisma {
 
 
   export type HospitalSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    name?: boolean
     id?: boolean
+    name?: boolean
     address?: boolean
     logo?: boolean
     phone?: boolean
@@ -2949,14 +2963,16 @@ export namespace Prisma {
     paymentPlan?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    deletedAt?: boolean
+    deletedBy?: boolean
     staffs?: boolean | Hospital$staffsArgs<ExtArgs>
     patients?: boolean | Hospital$patientsArgs<ExtArgs>
     _count?: boolean | HospitalCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["hospital"]>
 
   export type HospitalSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    name?: boolean
     id?: boolean
+    name?: boolean
     address?: boolean
     logo?: boolean
     phone?: boolean
@@ -2973,11 +2989,13 @@ export namespace Prisma {
     paymentPlan?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    deletedAt?: boolean
+    deletedBy?: boolean
   }, ExtArgs["result"]["hospital"]>
 
   export type HospitalSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    name?: boolean
     id?: boolean
+    name?: boolean
     address?: boolean
     logo?: boolean
     phone?: boolean
@@ -2994,11 +3012,13 @@ export namespace Prisma {
     paymentPlan?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    deletedAt?: boolean
+    deletedBy?: boolean
   }, ExtArgs["result"]["hospital"]>
 
   export type HospitalSelectScalar = {
-    name?: boolean
     id?: boolean
+    name?: boolean
     address?: boolean
     logo?: boolean
     phone?: boolean
@@ -3015,9 +3035,11 @@ export namespace Prisma {
     paymentPlan?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    deletedAt?: boolean
+    deletedBy?: boolean
   }
 
-  export type HospitalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"name" | "id" | "address" | "logo" | "phone" | "email" | "city" | "state" | "country" | "zipCode" | "website" | "slogan" | "pobox" | "nfcCardFee" | "registrationFee" | "paymentPlan" | "createdAt" | "updatedAt", ExtArgs["result"]["hospital"]>
+  export type HospitalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "address" | "logo" | "phone" | "email" | "city" | "state" | "country" | "zipCode" | "website" | "slogan" | "pobox" | "nfcCardFee" | "registrationFee" | "paymentPlan" | "createdAt" | "updatedAt" | "deletedAt" | "deletedBy", ExtArgs["result"]["hospital"]>
   export type HospitalInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     staffs?: boolean | Hospital$staffsArgs<ExtArgs>
     patients?: boolean | Hospital$patientsArgs<ExtArgs>
@@ -3033,8 +3055,8 @@ export namespace Prisma {
       patients: Prisma.$PatientPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      name: string
       id: string
+      name: string
       address: string
       logo: string | null
       phone: string[]
@@ -3051,6 +3073,8 @@ export namespace Prisma {
       paymentPlan: $Enums.PaymentPlan | null
       createdAt: Date
       updatedAt: Date
+      deletedAt: Date | null
+      deletedBy: string | null
     }, ExtArgs["result"]["hospital"]>
     composites: {}
   }
@@ -3134,8 +3158,8 @@ export namespace Prisma {
      * // Get first 10 Hospitals
      * const hospitals = await prisma.hospital.findMany({ take: 10 })
      * 
-     * // Only select the `name`
-     * const hospitalWithNameOnly = await prisma.hospital.findMany({ select: { name: true } })
+     * // Only select the `id`
+     * const hospitalWithIdOnly = await prisma.hospital.findMany({ select: { id: true } })
      * 
      */
     findMany<T extends HospitalFindManyArgs>(args?: SelectSubset<T, HospitalFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HospitalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -3179,9 +3203,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Create many Hospitals and only return the `name`
-     * const hospitalWithNameOnly = await prisma.hospital.createManyAndReturn({
-     *   select: { name: true },
+     * // Create many Hospitals and only return the `id`
+     * const hospitalWithIdOnly = await prisma.hospital.createManyAndReturn({
+     *   select: { id: true },
      *   data: [
      *     // ... provide data here
      *   ]
@@ -3270,9 +3294,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Hospitals and only return the `name`
-     * const hospitalWithNameOnly = await prisma.hospital.updateManyAndReturn({
-     *   select: { name: true },
+     * // Update zero or more Hospitals and only return the `id`
+     * const hospitalWithIdOnly = await prisma.hospital.updateManyAndReturn({
+     *   select: { id: true },
      *   where: {
      *     // ... provide filter here
      *   },
@@ -3476,8 +3500,8 @@ export namespace Prisma {
    * Fields of the Hospital model
    */
   interface HospitalFieldRefs {
-    readonly name: FieldRef<"Hospital", 'String'>
     readonly id: FieldRef<"Hospital", 'String'>
+    readonly name: FieldRef<"Hospital", 'String'>
     readonly address: FieldRef<"Hospital", 'String'>
     readonly logo: FieldRef<"Hospital", 'String'>
     readonly phone: FieldRef<"Hospital", 'String[]'>
@@ -3494,6 +3518,8 @@ export namespace Prisma {
     readonly paymentPlan: FieldRef<"Hospital", 'PaymentPlan'>
     readonly createdAt: FieldRef<"Hospital", 'DateTime'>
     readonly updatedAt: FieldRef<"Hospital", 'DateTime'>
+    readonly deletedAt: FieldRef<"Hospital", 'DateTime'>
+    readonly deletedBy: FieldRef<"Hospital", 'String'>
   }
     
 
@@ -20246,8 +20272,8 @@ export namespace Prisma {
 
 
   export const HospitalScalarFieldEnum: {
-    name: 'name',
     id: 'id',
+    name: 'name',
     address: 'address',
     logo: 'logo',
     phone: 'phone',
@@ -20263,7 +20289,9 @@ export namespace Prisma {
     registrationFee: 'registrationFee',
     paymentPlan: 'paymentPlan',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    deletedAt: 'deletedAt',
+    deletedBy: 'deletedBy'
   };
 
   export type HospitalScalarFieldEnum = (typeof HospitalScalarFieldEnum)[keyof typeof HospitalScalarFieldEnum]
@@ -20842,8 +20870,8 @@ export namespace Prisma {
     AND?: HospitalWhereInput | HospitalWhereInput[]
     OR?: HospitalWhereInput[]
     NOT?: HospitalWhereInput | HospitalWhereInput[]
-    name?: StringFilter<"Hospital"> | string
     id?: StringFilter<"Hospital"> | string
+    name?: StringFilter<"Hospital"> | string
     address?: StringFilter<"Hospital"> | string
     logo?: StringNullableFilter<"Hospital"> | string | null
     phone?: StringNullableListFilter<"Hospital">
@@ -20860,13 +20888,15 @@ export namespace Prisma {
     paymentPlan?: EnumPaymentPlanNullableFilter<"Hospital"> | $Enums.PaymentPlan | null
     createdAt?: DateTimeFilter<"Hospital"> | Date | string
     updatedAt?: DateTimeFilter<"Hospital"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Hospital"> | Date | string | null
+    deletedBy?: StringNullableFilter<"Hospital"> | string | null
     staffs?: HospitalStaffListRelationFilter
     patients?: PatientListRelationFilter
   }
 
   export type HospitalOrderByWithRelationInput = {
-    name?: SortOrder
     id?: SortOrder
+    name?: SortOrder
     address?: SortOrder
     logo?: SortOrderInput | SortOrder
     phone?: SortOrder
@@ -20883,6 +20913,8 @@ export namespace Prisma {
     paymentPlan?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
+    deletedBy?: SortOrderInput | SortOrder
     staffs?: HospitalStaffOrderByRelationAggregateInput
     patients?: PatientOrderByRelationAggregateInput
   }
@@ -20909,13 +20941,15 @@ export namespace Prisma {
     paymentPlan?: EnumPaymentPlanNullableFilter<"Hospital"> | $Enums.PaymentPlan | null
     createdAt?: DateTimeFilter<"Hospital"> | Date | string
     updatedAt?: DateTimeFilter<"Hospital"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Hospital"> | Date | string | null
+    deletedBy?: StringNullableFilter<"Hospital"> | string | null
     staffs?: HospitalStaffListRelationFilter
     patients?: PatientListRelationFilter
   }, "id">
 
   export type HospitalOrderByWithAggregationInput = {
-    name?: SortOrder
     id?: SortOrder
+    name?: SortOrder
     address?: SortOrder
     logo?: SortOrderInput | SortOrder
     phone?: SortOrder
@@ -20932,6 +20966,8 @@ export namespace Prisma {
     paymentPlan?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
+    deletedBy?: SortOrderInput | SortOrder
     _count?: HospitalCountOrderByAggregateInput
     _avg?: HospitalAvgOrderByAggregateInput
     _max?: HospitalMaxOrderByAggregateInput
@@ -20943,8 +20979,8 @@ export namespace Prisma {
     AND?: HospitalScalarWhereWithAggregatesInput | HospitalScalarWhereWithAggregatesInput[]
     OR?: HospitalScalarWhereWithAggregatesInput[]
     NOT?: HospitalScalarWhereWithAggregatesInput | HospitalScalarWhereWithAggregatesInput[]
-    name?: StringWithAggregatesFilter<"Hospital"> | string
     id?: StringWithAggregatesFilter<"Hospital"> | string
+    name?: StringWithAggregatesFilter<"Hospital"> | string
     address?: StringWithAggregatesFilter<"Hospital"> | string
     logo?: StringNullableWithAggregatesFilter<"Hospital"> | string | null
     phone?: StringNullableListFilter<"Hospital">
@@ -20961,6 +20997,8 @@ export namespace Prisma {
     paymentPlan?: EnumPaymentPlanNullableWithAggregatesFilter<"Hospital"> | $Enums.PaymentPlan | null
     createdAt?: DateTimeWithAggregatesFilter<"Hospital"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Hospital"> | Date | string
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"Hospital"> | Date | string | null
+    deletedBy?: StringNullableWithAggregatesFilter<"Hospital"> | string | null
   }
 
   export type InsuranceSchemeWhereInput = {
@@ -22134,8 +22172,8 @@ export namespace Prisma {
   }
 
   export type HospitalCreateInput = {
-    name: string
     id?: string
+    name: string
     address: string
     logo?: string | null
     phone?: HospitalCreatephoneInput | string[]
@@ -22152,13 +22190,15 @@ export namespace Prisma {
     paymentPlan?: $Enums.PaymentPlan | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    deletedBy?: string | null
     staffs?: HospitalStaffCreateNestedManyWithoutHospitalInput
     patients?: PatientCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateInput = {
-    name: string
     id?: string
+    name: string
     address: string
     logo?: string | null
     phone?: HospitalCreatephoneInput | string[]
@@ -22175,13 +22215,15 @@ export namespace Prisma {
     paymentPlan?: $Enums.PaymentPlan | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    deletedBy?: string | null
     staffs?: HospitalStaffUncheckedCreateNestedManyWithoutHospitalInput
     patients?: PatientUncheckedCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUpdateInput = {
-    name?: StringFieldUpdateOperationsInput | string
     id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: HospitalUpdatephoneInput | string[]
@@ -22198,13 +22240,15 @@ export namespace Prisma {
     paymentPlan?: NullableEnumPaymentPlanFieldUpdateOperationsInput | $Enums.PaymentPlan | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     staffs?: HospitalStaffUpdateManyWithoutHospitalNestedInput
     patients?: PatientUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateInput = {
-    name?: StringFieldUpdateOperationsInput | string
     id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: HospitalUpdatephoneInput | string[]
@@ -22221,13 +22265,15 @@ export namespace Prisma {
     paymentPlan?: NullableEnumPaymentPlanFieldUpdateOperationsInput | $Enums.PaymentPlan | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     staffs?: HospitalStaffUncheckedUpdateManyWithoutHospitalNestedInput
     patients?: PatientUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalCreateManyInput = {
-    name: string
     id?: string
+    name: string
     address: string
     logo?: string | null
     phone?: HospitalCreatephoneInput | string[]
@@ -22244,11 +22290,13 @@ export namespace Prisma {
     paymentPlan?: $Enums.PaymentPlan | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    deletedBy?: string | null
   }
 
   export type HospitalUpdateManyMutationInput = {
-    name?: StringFieldUpdateOperationsInput | string
     id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: HospitalUpdatephoneInput | string[]
@@ -22265,11 +22313,13 @@ export namespace Prisma {
     paymentPlan?: NullableEnumPaymentPlanFieldUpdateOperationsInput | $Enums.PaymentPlan | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type HospitalUncheckedUpdateManyInput = {
-    name?: StringFieldUpdateOperationsInput | string
     id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: HospitalUpdatephoneInput | string[]
@@ -22286,6 +22336,8 @@ export namespace Prisma {
     paymentPlan?: NullableEnumPaymentPlanFieldUpdateOperationsInput | $Enums.PaymentPlan | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type InsuranceSchemeCreateInput = {
@@ -23655,6 +23707,17 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type HospitalStaffListRelationFilter = {
     every?: HospitalStaffWhereInput
     some?: HospitalStaffWhereInput
@@ -23681,8 +23744,8 @@ export namespace Prisma {
   }
 
   export type HospitalCountOrderByAggregateInput = {
-    name?: SortOrder
     id?: SortOrder
+    name?: SortOrder
     address?: SortOrder
     logo?: SortOrder
     phone?: SortOrder
@@ -23699,6 +23762,8 @@ export namespace Prisma {
     paymentPlan?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrder
+    deletedBy?: SortOrder
   }
 
   export type HospitalAvgOrderByAggregateInput = {
@@ -23707,8 +23772,8 @@ export namespace Prisma {
   }
 
   export type HospitalMaxOrderByAggregateInput = {
-    name?: SortOrder
     id?: SortOrder
+    name?: SortOrder
     address?: SortOrder
     logo?: SortOrder
     email?: SortOrder
@@ -23724,11 +23789,13 @@ export namespace Prisma {
     paymentPlan?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrder
+    deletedBy?: SortOrder
   }
 
   export type HospitalMinOrderByAggregateInput = {
-    name?: SortOrder
     id?: SortOrder
+    name?: SortOrder
     address?: SortOrder
     logo?: SortOrder
     email?: SortOrder
@@ -23744,6 +23811,8 @@ export namespace Prisma {
     paymentPlan?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrder
+    deletedBy?: SortOrder
   }
 
   export type HospitalSumOrderByAggregateInput = {
@@ -23827,6 +23896,20 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type NHISWorkerListRelationFilter = {
     every?: NHISWorkerWhereInput
     some?: NHISWorkerWhereInput
@@ -23882,17 +23965,6 @@ export namespace Prisma {
     registrationFee?: SortOrder
   }
 
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type RolePermissionListRelationFilter = {
     every?: RolePermissionWhereInput
     some?: RolePermissionWhereInput
@@ -23944,20 +24016,6 @@ export namespace Prisma {
     updatedBy?: SortOrder
     deletedAt?: SortOrder
     deletedBy?: SortOrder
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type ResourceCountOrderByAggregateInput = {
@@ -24956,6 +25014,10 @@ export namespace Prisma {
     set?: Date | string
   }
 
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
   export type HospitalStaffUpdateManyWithoutHospitalNestedInput = {
     create?: XOR<HospitalStaffCreateWithoutHospitalInput, HospitalStaffUncheckedCreateWithoutHospitalInput> | HospitalStaffCreateWithoutHospitalInput[] | HospitalStaffUncheckedCreateWithoutHospitalInput[]
     connectOrCreate?: HospitalStaffCreateOrConnectWithoutHospitalInput | HospitalStaffCreateOrConnectWithoutHospitalInput[]
@@ -25131,10 +25193,6 @@ export namespace Prisma {
     connectOrCreate?: UserCreateOrConnectWithoutRoleInput | UserCreateOrConnectWithoutRoleInput[]
     createMany?: UserCreateManyRoleInputEnvelope
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
   }
 
   export type RolePermissionUpdateManyWithoutRoleNestedInput = {
@@ -25967,6 +26025,17 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -26061,17 +26130,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -28034,8 +28092,8 @@ export namespace Prisma {
   }
 
   export type HospitalCreateWithoutStaffsInput = {
-    name: string
     id?: string
+    name: string
     address: string
     logo?: string | null
     phone?: HospitalCreatephoneInput | string[]
@@ -28052,12 +28110,14 @@ export namespace Prisma {
     paymentPlan?: $Enums.PaymentPlan | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    deletedBy?: string | null
     patients?: PatientCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutStaffsInput = {
-    name: string
     id?: string
+    name: string
     address: string
     logo?: string | null
     phone?: HospitalCreatephoneInput | string[]
@@ -28074,6 +28134,8 @@ export namespace Prisma {
     paymentPlan?: $Enums.PaymentPlan | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    deletedBy?: string | null
     patients?: PatientUncheckedCreateNestedManyWithoutHospitalInput
   }
 
@@ -28163,8 +28225,8 @@ export namespace Prisma {
   }
 
   export type HospitalUpdateWithoutStaffsInput = {
-    name?: StringFieldUpdateOperationsInput | string
     id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: HospitalUpdatephoneInput | string[]
@@ -28181,12 +28243,14 @@ export namespace Prisma {
     paymentPlan?: NullableEnumPaymentPlanFieldUpdateOperationsInput | $Enums.PaymentPlan | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     patients?: PatientUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutStaffsInput = {
-    name?: StringFieldUpdateOperationsInput | string
     id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: HospitalUpdatephoneInput | string[]
@@ -28203,6 +28267,8 @@ export namespace Prisma {
     paymentPlan?: NullableEnumPaymentPlanFieldUpdateOperationsInput | $Enums.PaymentPlan | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     patients?: PatientUncheckedUpdateManyWithoutHospitalNestedInput
   }
 
@@ -28440,8 +28506,8 @@ export namespace Prisma {
   }
 
   export type HospitalCreateWithoutPatientsInput = {
-    name: string
     id?: string
+    name: string
     address: string
     logo?: string | null
     phone?: HospitalCreatephoneInput | string[]
@@ -28458,12 +28524,14 @@ export namespace Prisma {
     paymentPlan?: $Enums.PaymentPlan | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    deletedBy?: string | null
     staffs?: HospitalStaffCreateNestedManyWithoutHospitalInput
   }
 
   export type HospitalUncheckedCreateWithoutPatientsInput = {
-    name: string
     id?: string
+    name: string
     address: string
     logo?: string | null
     phone?: HospitalCreatephoneInput | string[]
@@ -28480,6 +28548,8 @@ export namespace Prisma {
     paymentPlan?: $Enums.PaymentPlan | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    deletedBy?: string | null
     staffs?: HospitalStaffUncheckedCreateNestedManyWithoutHospitalInput
   }
 
@@ -28636,8 +28706,8 @@ export namespace Prisma {
   }
 
   export type HospitalUpdateWithoutPatientsInput = {
-    name?: StringFieldUpdateOperationsInput | string
     id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: HospitalUpdatephoneInput | string[]
@@ -28654,12 +28724,14 @@ export namespace Prisma {
     paymentPlan?: NullableEnumPaymentPlanFieldUpdateOperationsInput | $Enums.PaymentPlan | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     staffs?: HospitalStaffUpdateManyWithoutHospitalNestedInput
   }
 
   export type HospitalUncheckedUpdateWithoutPatientsInput = {
-    name?: StringFieldUpdateOperationsInput | string
     id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     logo?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: HospitalUpdatephoneInput | string[]
@@ -28676,6 +28748,8 @@ export namespace Prisma {
     paymentPlan?: NullableEnumPaymentPlanFieldUpdateOperationsInput | $Enums.PaymentPlan | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     staffs?: HospitalStaffUncheckedUpdateManyWithoutHospitalNestedInput
   }
 

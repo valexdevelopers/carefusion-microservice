@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsOptional, IsArray, IsEmail, IsUUID, IsDate, IsEnum, IsNotEmpty, IsStrongPassword, MinLength, ValidateIf, Min } from 'class-validator';
+import { IsString, IsOptional, IsArray, IsEmail, IsUUID, IsDate, IsEnum, IsNotEmpty, IsStrongPassword, MinLength, ValidateIf, Min, IsDecimal } from 'class-validator';
 import { Type } from 'class-transformer';
 import { BillingType, PaymentPlan, PermissionAction, TransactionMode, UserStatus, UserType } from '@shared/enums/users/user.enums';
 
@@ -23,6 +23,14 @@ export class CreateHospitalDto {
   @IsNotEmpty()
   address: string;
 
+  @ApiProperty({
+    description: "Hospital logo (file)",
+    type: 'string',
+    format: 'binary',
+    required: false,
+  })
+  @IsOptional()
+  logo: string;
 
   @ApiProperty({
     description: 'Hospital phone numbers',
@@ -101,6 +109,25 @@ export class CreateHospitalDto {
   @IsString()
   pobox?: string;
 
+  @ApiProperty({
+    description: 'nfcCardFee of the hospital',
+    example: '3000.00',
+    required: false,
+  })
+  @IsNotEmpty()
+  @IsDecimal()
+  nfcCardFee: number;
+
+
+  @ApiProperty({
+    description: 'registrationFee of the hospital',
+    example: '3000.00',
+    required: false,
+  })
+  @IsNotEmpty()
+  @IsDecimal()
+  registrationFee: number;
+
 
   @ApiProperty({
     description: 'Payment plan for the hospital services',
@@ -112,6 +139,7 @@ export class CreateHospitalDto {
   paymentPlan?: PaymentPlan;
 
 
+  
 }
 
 export class CreateRoleDto {

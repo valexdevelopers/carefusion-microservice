@@ -82,6 +82,15 @@
         "tsConfigPath": "apps/laboratory/tsconfig.app.json"
       }
     },
+    "notifications": {
+      "type": "application",
+      "root": "apps/notifications",
+      "entryFile": "main",
+      "sourceRoot": "apps/notifications/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/notifications/tsconfig.app.json"
+      }
+    },
     "pharmacy": {
       "type": "application",
       "root": "apps/pharmacy",

@@ -4,6 +4,7 @@ import { IsOptional, IsUUID, IsString, IsDateString, IsEnum, IsNotEmpty, IsStron
 import { BillingType, BLOOD_GROUP, Gender, GENOTYPE, HospitalStaffRole, MaritalStatus } from "@shared/enums/users/user.enums";
 
 export class UpdateHospitalDto extends CreateHospitalDto {}
+
 export class UpdateRoleDto extends CreateRoleDto {
     @ApiProperty({ type: 'string', required: false, example: 'b56e1d2c-6d6f-4d5b-bfed-91b7344561ad', format: 'uuid', })
     @IsOptional()

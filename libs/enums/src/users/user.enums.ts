@@ -3,8 +3,16 @@ export enum  PaymentPlan {
     EPIC = 'EPIC',
     PREMIUM = 'PREMIUM',
     EXQUISITE = 'EXQUISITE',
-  }
+}
 
+
+export interface HospitalFilter {
+  city?: string,
+  state?: string,
+  country?: string,
+  paymentPlan?: string,
+
+}
 export enum UserType {
 SUPERADMIN = "SUPERADMIN",
 ADMIN = "ADMIN",

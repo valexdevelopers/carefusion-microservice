@@ -15,8 +15,8 @@ datasource db {
 }
 
 model Hospital {
-  name            String
   id              String       @id @default(uuid())
+  name            String
   address         String
   logo            String?
   phone           String[]
@@ -33,6 +33,8 @@ model Hospital {
   paymentPlan     PaymentPlan?
   createdAt       DateTime     @default(now())
   updatedAt       DateTime     @updatedAt
+  deletedAt       DateTime?    @updatedAt
+  deletedBy       String?
 
   staffs   HospitalStaff[]
   patients Patient[]
@@ -290,9 +292,8 @@ model NHISWorker {
 // ------------ PUBLIC HEALTH WORKER ------------
 
 model PublicHealthWorker {
-  id   String @id @default(uuid()) @map("user_id")
-  user User   @relation(fields: [id], references: [id], onDelete: Cascade)
-
+  id   String            @id @default(uuid()) @map("user_id")
+  user User              @relation(fields: [id], references: [id], onDelete: Cascade)
   role PublicHealthRole?
 }
 
